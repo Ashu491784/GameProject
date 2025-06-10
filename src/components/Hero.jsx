@@ -1,4 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react';
+import {Star} from "lucide-react";
+import {motion, AnimatePresence} from "framer-motion";
+import Spline from '@splinetool/react-spline';
 
 
 const Hero = () => {
