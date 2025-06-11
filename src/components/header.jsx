@@ -15,6 +15,10 @@ const header = () => {
         }
     }
 
+    const navigate = useNavigate();
+  const handleSignIn = () => {
+        navigate("/login");
+      };
   return (
     <header className="py-1 px-7 flex justify-between 
     items-center fixed  top-0 z-50 w-full border-b-[0.3px] border-[#babaff] bg-transparent">
@@ -30,8 +34,8 @@ const header = () => {
                 </button>
 
     <button className="h-8 px-6 bg-gradient-to-r from-gray-600 to-gray-400 rounded-lg font-medium 
-            text-nowrap hover:opacity-70 transition-all duration-300">
-                Sign In
+            text-nowrap hover:opacity-70 transition-all duration-300" onClick={handleSignIn}>Sign In
+                
                 </button>
         </div>
         </div>

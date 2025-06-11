@@ -8,14 +8,14 @@ const Hero = () => {
   return (
     <main className='relative w-full h-screen overflow-hidden flex
     justify-center mb-[10%]'>
-        <video src='public\videos\Hero(1)2.mp4' 
+        {/* <video src='public\videos\Hero(1)2.mp4' 
         autoPlay 
          muted 
           loop
          playsInline
         className='w-full h-full object-cover absolute 
         top-0 first-letter:left-0 -z-10'>
-        </video>
+        </video> */}
     <div className='absolute bottom-[5%] flex flex-col 
     items-center gap-5'>
         <img src="public\images\illu-text.png" alt='Illu-text' className='md:w-[30rem] w-[20rem]'></img>

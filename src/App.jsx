@@ -1,26 +1,40 @@
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Header from "./components/header";
 import Hero from "./components/Hero";
 import Characters from "./components/Characters";
 import Arena from "./components/Arena";
 import Footer from "./components/footer";
-import { Route, Router } from "lucide-react";
 import Login from "./components/Login";
-// import Login from "./components/Login";
+import Register from "./components/Register";
 
 export const App = () => {
   return (
-    <div className=''>
-      <Header/>
-      <Hero/>
-      <Characters/>
-      <Arena/>
-      <Footer/>
-      {/* <Login/> */}
-      <Router>
-        <Route path="login" element={ <Login/>}></Route>
-      </Router>
-    </div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        {/* Home Route */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Hero />
+              <Characters />
+              <Arena />
+              <Footer />
+            </>
+          }
+        />
 
-export default App
+        {/* Login Route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Register Route */}
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;
