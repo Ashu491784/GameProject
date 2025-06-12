@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import {BiUser} from "react-icons/bi";
 import { AiOutlineUnlock } from 'react-icons/ai'; // from Ant Design Icons
+
 const Login = () => {
   return (
-    <div>
+    <div className="text-white h-[100vh] flex justify-center items-center bg-cover">
          <video src='public\videos\Hero(1)2.mp4' 
         autoPlay 
          muted 
@@ -23,7 +24,7 @@ const Login = () => {
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform -translate-y-6 
             scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
             peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Your Email</label>
-           <BiUser className="absolute top-4 ring-4 "/>
+           {/* <BiUser className="absolute top-4 ring-4 "/> */}
            
             </div>
              <div className="relative my-4">
@@ -33,7 +34,7 @@ const Login = () => {
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform  -translate-y-6 
             scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
             peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Your Password</label>
-           <AiOutlineUnlock className="absolute top-4 ring-4"/>
+           {/* <AiOutlineUnlock className="absolute top-4 ring-4"/> */}
            
             </div>
             <div className="flex justify-between items-center">
@@ -41,13 +42,13 @@ const Login = () => {
                     <input type="checkbox" name=""  id=""/>
                     <label htmlFor="Remember Me" className="">Remember Me</label>
                 </div>
-                <link to='' className="text-blue-500 ">Forget Password?</link>
+                <Link to='' className="text-blue-500 ">Forget Password?</Link>
             </div>
             <button type="submit" className="w-full mb-4 text-[18px] mt-6 rounded-full 
             bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300">Login</button>
-            <div>
-                <span className="text-blue-500 ">New Here? <link to="/src/components/Register.jsx" className="text-blue-500">Create an Account</link></span>
-            </div>
+           <div>
+                <span className="text-blue-500">New Here? <Link to="/register" className="text-blue-500">Create an Account</Link></span>
+</div>
             </form>
         </div>
     </div>

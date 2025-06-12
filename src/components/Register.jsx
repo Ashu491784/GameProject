@@ -1,5 +1,5 @@
 import {BiUser} from "react-icons/bi";
-import { AiOutlineUnlock } from "react-icons/bi";
+import { AiOutlineUnlock } from "react-icons/ai";
 const Register = () => {
   return (
      <div className="bg-slate-800 border border-slate-400 rounded-md
@@ -40,7 +40,7 @@ const Register = () => {
                 <button type="submit" className="w-full mb-4 text-[18px] mt-6 rounded-full 
                 bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300">Login</button>
                 <div>
-                    <span className="text-blue-500 ">Already Create an Account? <link to="/src/components/Login.jsx" className="text-blue-500">Login</link></span>
+                    <span className="text-blue-600 ">Already Create an Account? <Link to="/Login" className="text-blue-500">Login</Link></span>
                 </div>
                 </form>
             </div>
