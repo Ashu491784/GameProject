@@ -5,7 +5,7 @@ import { AiOutlineUnlock } from 'react-icons/ai'; // from Ant Design Icons
 const Login = () => {
   return (
     <div className="text-white h-[100vh] flex justify-center items-center bg-cover">
-         <video src='public\videos\Hero(1)2.mp4' 
+         <video src='public\videos\hero.mp4' 
         autoPlay 
          muted 
           loop
@@ -45,7 +45,7 @@ const Login = () => {
                 <Link to='' className="text-blue-500 ">Forget Password?</Link>
             </div>
             <button type="submit" className="w-full mb-4 text-[18px] mt-6 rounded-full 
-            bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300">Login</button>
+            bg-white text-blue-700 hover:bg-blue-200 hover:text-white py-2 transition-colors duration-300">Login</button>
            <div>
                 <span className="text-blue-500">New Here? <Link to="/register" className="text-blue-500">Create an Account</Link></span>
 </div>

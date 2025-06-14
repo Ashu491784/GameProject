@@ -5,7 +5,9 @@
 @layer base{
  
   body{
-    @apply bg-black  text-white relative font-sans 
+    @apply bg-black  text-white relative font-33
+    
+    
     h-screen overflow-x-hidden
   };
 }
