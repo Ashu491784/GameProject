@@ -20,12 +20,14 @@ export const App = () => {
             <>
               <Header />
               <Hero />
-              <Characters />
+               {/* <Characters />
               <Arena />
-              <Footer />
+              <Footer />  */}
             </>
           }
         />
+
+        
 
         {/* Login Route */}
         <Route path="/login" element={<Login />} />
