@@ -8,7 +8,7 @@ import Arena from "./components/Arena";
 import Footer from "./components/footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import Shop from "./components/Shop";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -26,8 +26,9 @@ export const App = () => {
             </>
           }
         />
-
-        
+      <Route path="/Characters" element={<Characters />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/Arena" element={<Arena />} />
 
         {/* Login Route */}
         <Route path="/login" element={<Login />} />

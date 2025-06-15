@@ -3,6 +3,14 @@ import 'boxicons/css/boxicons.min.css';
 const Arena = () => {
   return (
     <div className="md:min-h-[90%] p-0 lg:p-8 md:mt-0 mt-60">
+       <video src='public\videos\galaxy.mp4' 
+        autoPlay 
+         muted 
+          loop
+         playsInline
+        className='w-full h-full object-cover absolute 
+        top-0 first-letter:left-0 -z-10'>
+        </video>
         <div className="relative z-10 pt-6 text-center">
             <h1 className="text-5xl font-bold tracking-widest mb-28" 
             style={{textShadow: "0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(167, 139, 250, 0.5)"}}>

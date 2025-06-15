@@ -87,8 +87,15 @@ const Characters = () => {
       setCursorInModelArea(false)
     }
   return (
-    <div className='relative w-full h-screen
-     overflow-hidden mb-[10%]'>
+    <div className='relative w-full h-screen overflow-hidden mb-[10%]'>
+        <video src='public\videos\galaxy.mp4' 
+        autoPlay 
+         muted 
+          loop
+         playsInline
+        className='w-full h-full object-cover absolute 
+        top-0 first-letter:left-0 -z-10'>
+        </video>
 
      <CustomeCursor isHovering3D={cursorInModelArea}/>
 

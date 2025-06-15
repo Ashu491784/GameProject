@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <main className='relative w-full h-screen overflow-hidden flex
     justify-center mb-[10%]'>
-        <video src='public\videos\ui.mp4' 
+        <video src='public\videos\herenewone.mp4' 
         autoPlay 
          muted 
           loop
