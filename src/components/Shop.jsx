@@ -8,7 +8,8 @@ const Shop = () => {
       features: [
         "An Al chatbot that can understand your queries",
         "Personalized recommendations based on your preferences",
-        "Ability to explore the app and its features without any cost"
+        "Ability to explore the app and its features without any cost",
+        "$0"
       ],
       cta: "GET START©"
     },
@@ -17,31 +18,33 @@ const Shop = () => {
       features: [
         "Advanced Al chatbot that can understand complex queries",
         "An analytics dashboard to track your conversations",
-        "Priority support to solve issues quickly"
+        "Priority support to solve issues quickly",
+        "$9.99"
       ],
-      cta: "GET START©"
+      cta: "BUY NOW"
     },
     {
       name: "Enterprise",
       features: [
         "Custom Al chatbot that can understand your queries",
         "Personalized recommendations based on your preferences",
-        "Ability to explore the app and its features without any cost"
+        "Ability to explore the app and its features without any cost",
+        "$20.5"
       ],
-      cta: "CREATEER #5"
+      cta: "BUY NOW"
     }
   ];
 
   const allFeatures = [
-    "An Al chatbot that can understand your queries",
-    "Personalized recommendations based on your preferences",
-    "Ability to explore the app and its features without any cost",
-    "An advanced Al chatbot that can understand complex queries",
-    "An analytics dashboard to track your conversations",
-    "Priority support to solve issues quickly",
-    "An Al chatbot that can understand your queries",
-    "Personalized recommendations based on your preferences",
-    "Ability to explore the app and its features without any cost"
+    // "An Al chatbot that can understand your queries",
+    // "Personalized recommendations based on your preferences",
+    // "Ability to explore the app and its features without any cost",
+    // "An advanced Al chatbot that can understand complex queries",
+    // "An analytics dashboard to track your conversations",
+    // "Priority support to solve issues quickly",
+    // "An Al chatbot that can understand your queries",
+    // "Personalized recommendations based on your preferences",
+    // "Ability to explore the app and its features without any cost"
   ];
 
   return (
@@ -87,15 +90,14 @@ const Shop = () => {
       </div>
 
       {/* Features List */}
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-4 py-8 ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allFeatures.map((feature, index) => (
-            <div 
-              key={index} 
-              className="flex items-start bg-gray-50 p-4 rounded-lg hover:bg-white hover:shadow-sm transition-all"
+            <div key={index} className="flex items-start bg-slate-400 p-4 rounded-lg
+             hover:bg-white hover:shadow-sm transition-all  border-gray-300"
             >
               <span className="text-green-500 mr-2">•</span>
-              <p className="text-gray-700">{feature}</p>
+              <p className="text-gray-900">{feature}</p>
             </div>
           ))}
         </div>
