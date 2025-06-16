@@ -56,7 +56,7 @@ const Shop = () => {
         </video>
   
       <header className="py-8 text-center">
-        <h1 className="text-4xl font-bold text-yellow-50">AI Chatbot Solutions</h1>
+        <h1 className="text-4xl font-bold text-yellow-50">Packages</h1>
       </header>
       <section className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
