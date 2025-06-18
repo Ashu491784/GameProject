@@ -73,6 +73,14 @@ const Characters = () => {
             penetrate: 70,
             portable: 60,
             stars: 4,
+        },
+        COR: {
+           name: "COR",
+            power:85,
+            stable: 85,
+            penetrate: 80,
+            portable: 70,
+            stars: 4,
         }
     }
 
@@ -219,7 +227,30 @@ const Characters = () => {
           </div>
 
           {/* highlight for selected avatar */}
-          {selectedAvatar === "EVA" && (
+          {selectedAvatar === "COR" && (
+            <div className='absolute inset-0 border-2 rounded-lg poinnter-events-none'></div>
+          )}
+        </div>
+            <div className='relative bg-gray-900/70 backdrop-blur-sm rounded-lg
+       p-3 border flex lg:flex-row flex-col justify-between px-12 items-center
+        cursor-pointer transition-all duration-300' onClick={() => setSelectedAvatar("COR")}>
+          <div className='text-lg mb-2'>COR</div>
+
+          {/* avatar visual placeholder */}
+          <div className='w-20 h-20 bg-gray-800/50 rounded-md flex 
+          items-center justify-center mb-2'>
+            <img src="public\images\core.webp" alt="COR-IMG" />
+          </div>
+
+          {/* star rating */}
+          <div className='COR'>
+            {[...Array(4)].map((_,i) =>(
+              <Star key={i} className='w-4 h-4 fill-violet-400 text-violet-500'/>
+            ))}
+          </div>
+
+          {/* highlight for selected avatar */}
+          {selectedAvatar === "COR" && (
             <div className='absolute inset-0 border-2 rounded-lg poinnter-events-none'></div>
           )}
         </div>

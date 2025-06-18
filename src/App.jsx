@@ -9,6 +9,7 @@ import Footer from "./components/footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Shop from "./components/Shop";
+import ThemeToggle from "./components/Theme";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -35,6 +36,8 @@ export const App = () => {
 
         {/* Register Route */}
         <Route path="/register" element={<Register />} />
+     
+      <Route path="/Theme" element={<ThemeToggle />} />
       </Routes>
     </BrowserRouter>
   );

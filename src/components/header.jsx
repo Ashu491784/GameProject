@@ -1,14 +1,14 @@
 import 'boxicons/css/boxicons.min.css';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import ThemeToggle from './Theme';
+import React, {useState} from 'react';
 
 
 
 const header = () => {
 
-    // function to toggle the mobile menu
+      const [theme, setTheme] = useState('dark');
     const toggleMobileMenu = () =>{
         const MobileMenus = document.getElementById("MobileMenus"); //get mobile menu element
 
@@ -19,6 +19,11 @@ const header = () => {
             MobileMenus.classList.add('hidden')
         }
     }
+  //    const toggleTheme = () => {
+  //   const newTheme = theme === 'dark' ? 'light' : 'dark';
+  //   setTheme(newTheme);
+  //   document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  // };
 
     const navigate = useNavigate();
   const handleSignIn = () => {
@@ -122,14 +127,7 @@ const header = () => {
               after:transition-all hover:after:w-full text-nowrap">
             <i className="bx bx-store" /> Shop
             </a>
-        {/* <div className="flex items-center">
-      <button
-        // onClick={() => setDarkMode(!darkMode)}
-        className="cursor-pointer flex items-center gap-2 px-2 py-1 rounded border border-white dark:border-yellow-400">
-        <span >🌙</span>
-        <span >☀</span>
-      </button>
-    </div> */}
+      
      
             </nav>
             <div className='flex flex-col gap-3 w-full mt-4'>
@@ -142,6 +140,9 @@ const header = () => {
                     </button>
             </div>
         </div>
+         {/* <div className='ml-4'>
+        <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      </div> */}
     </header>
   )
 }
