@@ -1,8 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {BiUser} from "react-icons/bi";
-import { AiOutlineUnlock } from 'react-icons/ai'; // from Ant Design Icons
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { AiOutlineUnlock } from 'react-icons/ai';
+import { useState } from "react";
 
 const Login = () => {
+
+    const [email, setemail] = useState("");
+    const [password, setpassword] = useState("");
+    const [error, setError] = useState("");
+
+    const navigateb= useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+
+        try{
+            await signInWithEmailAndPassword(auth, email, password);
+            alert("Login success!!!");
+            
+        }catch(error){
+            setError("Invalid email or password!!!");
+        }
+    }
   return (
     <div className="text-white h-[100vh] flex justify-center items-center bg-cover">
          <video src='public\videos\newlog.mp4' 
@@ -16,9 +38,9 @@ const Login = () => {
         <div className="bg-slate-800 border border-slate-400 rounded-md
         p-8 shadow-lg background-filter backdrop:-blur-sm bg-opacity-30 relative">
             <h1 className="text-4xl text-white font-bold text-center mb-6">Login</h1>
-            <form action="">
+            <form onSubmit={handleSubmit}>
                 <div className="relative my-4 ">
-            <input type="email" className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
+            <input type="email" value={email} onChange={(e) => setemail(e.target.value)} className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
             border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 
            focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer" />
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform -translate-y-6 
@@ -28,7 +50,7 @@ const Login = () => {
            
             </div>
              <div className="relative my-4">
-            <input type="password" className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
+            <input type="password" value={password} onChange={(e) => setpassword(e.target.value)} className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
             border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 
            focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer" />
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform  -translate-y-6 
@@ -45,7 +67,7 @@ const Login = () => {
                 <Link to='' className="text-blue-500 ">Forget Password?</Link>
             </div>
             <button type="submit" className="w-full mb-4 text-[18px] mt-6 rounded-full 
-            bg-white text-blue-700 hover:bg-blue-200 hover:text-white py-2 transition-colors duration-300">Login</button>
+            bg-white text-blue-700 hover:bg-blue-200 hover:text-white py-2 transition-colors duration-300"><Link to="/Hero">Login</Link></button>
            <div>
                 <span className="text-blue-500">New Here? <Link to="/register" className="text-blue-500">Create an Account</Link></span>
 </div>
