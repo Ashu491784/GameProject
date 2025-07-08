@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Shop from "./components/Shop";
 import ThemeToggle from "./components/Theme";
+import Minigame1 from "./Games/Minigame1";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -38,6 +39,8 @@ export const App = () => {
         <Route path="/register" element={<Register />} />
      
       <Route path="/Theme" element={<ThemeToggle />} />
+
+      <Route path="/Minigame" element={<Minigame1 />} />
       </Routes>
     </BrowserRouter>
   );
