@@ -1,113 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 
-const TempleRunGame = () => {
-  const [gameStarted, setGameStarted] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
-  const [score, setScore] = useState(0);
-  const [coins, setCoins] = useState(0);
-  const [distance, setDistance] = useState(0);
-  const [playerState, setPlayerState] = useState('running'); 
-  const [obstacles, setObstacles] = useState([]);
-  const [coinsList, setCoinsList] = useState([]);
-  const [gameSpeed, setGameSpeed] = useState(10);
-  const gameLoopRef = useRef(null);
-  const obstacleIdRef = useRef(0);
-  const coinIdRef = useRef(0);
-  
-  // Game constants
-  const JUMP_DURATION = 25; // frames
-  const SLIDE_DURATION = 30; // frames
-
-  // Initialize game
-  const startGame = () => {
-    setGameStarted(true);
-    setGameOver(false);
-    setScore(0);
-    setDistance(0);
-    setCoins(0);
-    setPlayerState('running');
-    setObstacles([]);
-    setCoinsList([]);
-    setGameSpeed(10);
-    
-    if (gameLoopRef.current) {
-      cancelAnimationFrame(gameLoopRef.current);
-    }
-    gameLoopRef.current = requestAnimationFrame(gameLoop);
-  };
-
-  // Handle keyboard controls
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!gameStarted || gameOver) 
-        return;
-      
-      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') {
-        if (playerState === 'running') {
-          jump();
-        }
-      }
-      else if ((e.key === 'ArrowDown' || e.key === 's' || e.key === 'S')) {
-        if (playerState === 'running') {
-          slide();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameStarted, gameOver, playerState]);
-
-  // Jump action
-  const jump = () => {
-    setPlayerState('jumping');
-    setTimeout(() => {
-      setPlayerState('running');
-    }, JUMP_DURATION * 16);
-  };
-
-  // Slide action
-  const slide = () => {
-    setPlayerState('sliding');
-    setTimeout(() => {
-      setPlayerState('running');
-    }, SLIDE_DURATION * 16);
-  };
-
-  // Generate random obstacle
-  const generateObstacle = () => {
-    const types = ['rock', 'tree', 'pit', 'fire', 'wall'];
-    const type = types[Math.floor(Math.random() * types.length)];
-    
-    return {
-      id: obstacleIdRef.current++,
-      type,
-      position: 100, // start at right edge
-      passed: false,
-      height: type === 'wall' ? 80 : type === 'tree' ? 60 : 30
-    };
-  };
-
-  // Generate random coin
-  const generateCoin = () => {
-    const positions = [20, 40, 60, 80]; // different heights
-    
-    return {
-      id: coinIdRef.current++,
-      position: 100,
-      height: positions[Math.floor(Math.random() * positions.length)],
-      collected: false
-    };
-  };
-
-
-
+const GameCard = () => {
   return (
-    
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-4 font-sans">
+      <div className="perspective-1000 w-full max-w-2xl">
+        <div className="group w-full transform-3d">
+          <div className="relative transform-3d transition-all duration-700 group-hover:rotate-x-10 group-hover:-translate-y-5">
+            {/* Card Background with Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-700/30 rounded-3xl blur-xl opacity-70 group-hover:opacity-100 transition-all duration-500"></div>
+            
+            {/* Main Card */}
+            <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden border border-gray-700 shadow-2xl">
+              {/* Card Header with Game Info */}
 
+              
+              {/* Game Image with Floating Animation */}
+  <div className="relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
+<div className='grid grid-cols-2 gap-4 mb-8'>
+</div>
+</div>
+              
+      {/* game small card */}
+  <div className="p-8">
+        <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h2 className="text-3xl font-bold text-white mb-2">MoP MoB MinS</h2>
+                    <p className="text-gray-400">Simple thing and small knowledge mini game...🍀</p>
+        </div>
+    </div>
+  
+  <div className="grid grid-cols-2 gap-4 mb-8">
+                  {[
+                    { icon: '🍫', text: 'Chocolute' },
+                    { icon: '🧁', text: 'Vanilla' },
+                    { icon: '🍓', text: 'Strowberry' },
+                    { icon: '🍒🍏', text: 'Fruit and Nut' }
+                  ].map((feature, index) => (
+        <div key={index} className="flex items-center bg-gray-800/50 p-3 rounded-xl hover:bg-gray-700/50 transition-all">
+                      <span className="text-2xl mr-3">{feature.icon}</span>
+                      <span className="text-gray-300">{feature.text}</span>
+        </div>
+                  ))}
+                </div>
+                
+                {/* Action Buttons */}
+    <div className="flex space-x-4">
+          <button className="flex-1 bg-gradient-to-r from-blue-600 to-purple-700 hover:from-blue-500 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group-hover:scale-105">
+                    NEW GAME
+        </button>
+          <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white w-14 h-14 rounded-xl transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <span className="text-xl">❤</span>
+          </button>
+      </div>
+      </div>
+     </div>
+    </div>
+  </div>
+</div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-1/4 left-1/4 w-8 h-8 bg-blue-500 rounded-full opacity-20 animate-float"></div>
+      <div className="absolute top-1/3 right-1/4 w-6 h-6 bg-purple-500 rounded-full opacity-20 animate-float animation-delay-2000"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-10 h-10 bg-green-500 rounded-full opacity-20 animate-float animation-delay-4000"></div>
     </div>
   );
 };
 
-export default TempleRunGame;
+export default GameCard;
