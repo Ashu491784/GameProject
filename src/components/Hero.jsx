@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from 'react';
-import {Star} from "lucide-react";
+import {Link, Star} from "lucide-react";
 import {motion, AnimatePresence} from "framer-motion";
 import Spline from '@splinetool/react-spline';
+import { useNavigate } from "react-router-dom";
 
 
 const Hero = () => {
+        const navigate = useNavigate();
+        const handleClick = () => {
+          navigate('/Login');
+        };
+    
+  
   return (
     <main className='relative w-full h-screen overflow-hidden flex
     justify-center mb-[10%]'>
@@ -24,10 +31,11 @@ const Hero = () => {
 
  <div className='md:w-[75%] w-[60%] h-[0.1px] bg-[#baba]'></div>
  
- <button className="h-10 px-16 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-lg font-medium 
+ <button onClick={handleClick} className="h-10 px-16 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-lg font-medium 
             text-nowrap hover:opacity-70 transition-all duration-300">
-                PLAY NOW
+                PLAY NOW 
      </button>
+
      <div className='flex items-center gap-5 text-3xl font-extrabold text-gray-200'>
                 <img className='md:h-16 h-12' src="public/images/illu-logo.png" alt="Illu-logo"/> ZERO
                </div>

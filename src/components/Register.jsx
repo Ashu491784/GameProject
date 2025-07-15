@@ -38,7 +38,7 @@ const handleSubmitev= async (e) => {
 
   return (
     <div className="text-white h-[100vh] flex justify-center items-center bg-cover">
-          <video src='public\videos\hero.mp4' 
+          <video src='public\videos\girltheme.mp4' 
         autoPlay 
          muted 
           loop
