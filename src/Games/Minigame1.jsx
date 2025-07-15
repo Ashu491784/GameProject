@@ -58,11 +58,7 @@ const GameCard = () => {
     </div>
   </div>
 </div>
-      
-      {/* Floating Elements */}
-      <div className="absolute top-1/4 left-1/4 w-8 h-8 bg-blue-500 rounded-full opacity-20 animate-float"></div>
-      <div className="absolute top-1/3 right-1/4 w-6 h-6 bg-purple-500 rounded-full opacity-20 animate-float animation-delay-2000"></div>
-      <div className="absolute bottom-1/4 left-1/3 w-10 h-10 bg-green-500 rounded-full opacity-20 animate-float animation-delay-4000"></div>
+
     </div>
   );
 };
