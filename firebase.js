@@ -5,14 +5,14 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDigDKW0-ytSwcxrLtNOiEYGd6huhewrCI",
-  authDomain: "gamedevelop-bca21.firebaseapp.com",
-  databaseURL: "https://gamedevelop-bca21-default-rtdb.firebaseio.com",
-  projectId: "gamedevelop-bca21",
-  storageBucket: "gamedevelop-bca21.firebasestorage.app",
-  messagingSenderId: "594430618290",
-  appId: "1:594430618290:web:14a67a719a27b4c301b7ab",
-  measurementId: "G-W3DSVTYNJD"
+  apiKey: "AIzaSyBKNnuaC6wAPMg-oUrLCGUcTanwwayuLmw",
+  authDomain: "finalprojectgame-23eb9.firebaseapp.com",
+  databaseURL: "https://finalprojectgame-23eb9-default-rtdb.firebaseio.com",
+  projectId: "finalprojectgame-23eb9",
+  storageBucket: "finalprojectgame-23eb9.firebasestorage.app",
+  messagingSenderId: "400520720585",
+  appId: "1:400520720585:web:563646cb5ff96a225e9d18",
+  measurementId: "G-QHPWTJ4J0X"
 };
 
 const app = initializeApp(firebaseConfig);
