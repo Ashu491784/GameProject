@@ -3,7 +3,7 @@ import { Howl } from 'howler';
 import { FaPlay } from 'react-icons/fa';
 
 const StartScreen = ({ startGame, muted }) => {
-  const characters = [
+  const character = [
     {
       id: 'bella',
       name: 'Bella',
@@ -24,7 +24,7 @@ const StartScreen = ({ startGame, muted }) => {
     }
   ];
 
-  // Click sound
+
   const playClickSound = () => {
     if (!muted) {
       const sound = new Howl({
@@ -63,7 +63,7 @@ const StartScreen = ({ startGame, muted }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}>
-          {characters.map((char, index) => (
+          {character.map((char, index) => (
             <motion.div
               key={char.id}
               className="bg-white rounded-xl shadow-md p-6 text-center cursor-pointer transform transition-transform duration-300 hover:scale-105 active:scale-95"

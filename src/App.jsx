@@ -10,11 +10,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Shop from "./components/Shop";
 import ThemeToggle from "./components/Theme";
-import StartScreen from "./Games/MinigameStart";
-import Endgamescreen from "./Games/endscreenMinigame";
-import GameScreen from "./Games/Gamescreen";
-import CharacterMinigame from "./Games/CharacterMinigame";
-import FeedbackMinigame from "./Games/feedbackminigame";
+import MinigameScrean from "./components/MinigamesScreen";
 import GameStart from "./Games/GameStart";
 export const App = () => {
   return (
@@ -35,12 +31,8 @@ export const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/Theme" element={<ThemeToggle />} />
-          <Route path="/StartScreen" element={<StartScreen />} />
-          <Route path="/Endgamescreen" element={<Endgamescreen />} />
-          <Route path="/GameScreen" element={<GameScreen />} />
-          <Route path="/CharacterMinigame" element={<CharacterMinigame />} />
-          <Route path="/FeedbackMinigame" element={<FeedbackMinigame />} />
           <Route path="/GameStart" element={<GameStart />} />
+          <Route path="/Minigames" element={<MinigameScrean />} />
       </Routes>
     </BrowserRouter>
   );

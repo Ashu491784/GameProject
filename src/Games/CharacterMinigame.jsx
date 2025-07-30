@@ -25,19 +25,16 @@ const CharacterMinigame = ({ character, selectedItems, removeItem, feedback }) =
   return (
     <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-b from-rose-100 to-pink-200 rounded-xl shadow-xl max-w-3xl mx-auto mt-10">
       
-      {/* Character Container */}
       <motion.div
-        className={`relative w-48 h-48 rounded-full border-4 border-pink-300 shadow-lg overflow-hidden bg-cover bg-center ${character}`}
+        className={`relative w-48 h-48 rounded-full border-4 border-pink-300 shadow-lg overflow-hidden bg-cover bg-center ${CharacterMinigame}`}
         variants={characterVariants}
         animate={getReaction()}
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 150 }}
       >
-        {/* Base character could be a background image */}
         <div className="w-full h-full" />
 
-        {/* Clothing Items on Character */}
-        {selectedItems.map(item => (
+       {selectedItems.map(item => (
           <div
             key={`${item.type}-${item.id}`}
             className={`absolute w-10 h-10 ${item.type}${item.id}`}
