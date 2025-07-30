@@ -10,38 +10,37 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Shop from "./components/Shop";
 import ThemeToggle from "./components/Theme";
-import Minigame1 from "./Games/Minigame1";
 import StartScreen from "./Games/MinigameStart";
+import Endgamescreen from "./Games/endscreenMinigame";
+import GameScreen from "./Games/Gamescreen";
+import CharacterMinigame from "./Games/CharacterMinigame";
+import FeedbackMinigame from "./Games/feedbackminigame";
+import GameStart from "./Games/GameStart";
 export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Home Route */}
         <Route
           path="/"
           element={
             <>
               <Header />
               <Hero />
-               {/* <Characters />
-              <Arena />
-              <Footer />  */}
             </>
           }
         />
       <Route path="/Characters" element={<Characters />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/Arena" element={<Arena />} />
-
-        {/* Login Route */}
-        <Route path="/login" element={<Login />} />
-
-        {/* Register Route */}
-        <Route path="/register" element={<Register />} />
-     
-      <Route path="/Theme" element={<ThemeToggle />} />
-      <Route path="/StartScreen" element={<StartScreen />} />
-      <Route path="/Minigame" element={<Minigame1 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/Theme" element={<ThemeToggle />} />
+          <Route path="/StartScreen" element={<StartScreen />} />
+          <Route path="/Endgamescreen" element={<Endgamescreen />} />
+          <Route path="/GameScreen" element={<GameScreen />} />
+          <Route path="/CharacterMinigame" element={<CharacterMinigame />} />
+          <Route path="/FeedbackMinigame" element={<FeedbackMinigame />} />
+          <Route path="/GameStart" element={<GameStart />} />
       </Routes>
     </BrowserRouter>
   );
