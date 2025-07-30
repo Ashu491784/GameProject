@@ -6,25 +6,30 @@ import { AiOutlineUnlock } from 'react-icons/ai';
 import { useState } from "react";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    const [email, setemail] = useState("");
-    const [password, setpassword] = useState("");
-    const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-    const navigateb= useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
-
-        try{
-            await signInWithEmailAndPassword(auth, email, password);
-            alert("Login success!!!");
-            
-        }catch(error){
-            setError("Invalid email or password!!!");
-        }
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
     }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Login success!");
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      setError("Invalid email or password!");
+    }
+  };
   return (
     <div className="text-white h-[100vh] flex justify-center items-center bg-cover">
          <video src='public\videos\newlog.mp4' 
@@ -40,7 +45,7 @@ const Login = () => {
             <h1 className="text-4xl text-white font-bold text-center mb-6">Login</h1>
             <form onSubmit={handleSubmit}>
                 <div className="relative my-4 ">
-            <input type="email" value={email} onChange={(e) => setemail(e.target.value)} className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
             border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 
            focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer" />
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform -translate-y-6 
@@ -50,7 +55,7 @@ const Login = () => {
            
             </div>
              <div className="relative my-4">
-            <input type="password" value={password} onChange={(e) => setpassword(e.target.value)} className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="block w-72 py-2.3 px-0 text-sm text-white bg-transparent
             border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 
            focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer" />
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform  -translate-y-6 

@@ -1,6 +1,6 @@
 import {BiUser} from "react-icons/bi";
 import { AiOutlineUnlock } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { div, object } from "framer-motion/client";
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
@@ -12,28 +12,34 @@ const Register = () => {
   const [confirm, setconfirm] = useState("");
   const [error, setError] = useState("");
 
-const handleSubmitev= async (e) => {
-  e.preventDefault();
+  const navigate = useNavigate();
 
-  if (password !== confirm){
-    setError("password do not match");
-    return;
-  }
-  try{
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+  const handleSubmitev = async (e) => {
+    e.preventDefault();
+            console.log("Email:", email);
+      console.log("Password:", password);
 
-    const userRef = ref(database, "users");
-    await push(userRef, {
-      email: user.email,
-      uid: user.uid,
-    });
-    alert("user Registed Success!!!")
+    if (password !== confirm) {
+      setError("Passwords do not match");
+      return;
+    }
 
-  }catch(error){
-    setError(error.message)
-  }
-}
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      const userRef = ref(database, "users");
+      await push(userRef, {
+        email: user.email,
+        uid: user.uid,
+      });
+
+      alert("User Registered Successfully!");
+      navigate("/Login");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
 
   return (
@@ -57,7 +63,7 @@ const handleSubmitev= async (e) => {
                 <label htmlFor="" className="absolute text-sm text-white duration-300 transform -translate-y-6 
                 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Your Email</label>
-               {/* <BiUser className="absolute top-4 ring-4 "/> */}
+          
                
                 </div>
                  <div className="relative my-4">
@@ -67,7 +73,7 @@ const handleSubmitev= async (e) => {
                 <label htmlFor="" className="absolute text-sm text-white duration-300 transform  -translate-y-6 
                 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Your Password</label>
-               {/* <AiOutlineUnlock className="absolute top-4 ring-4"/> */}
+              
                
                 </div>
                   <div className="relative my-4">
@@ -77,12 +83,12 @@ const handleSubmitev= async (e) => {
                 <label htmlFor="" className="absolute text-sm text-white duration-300 transform  -translate-y-6 
                 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Conform your Password</label>
-               {/* <AiOutlineUnlock className="absolute top-4 ring-4"/> */}
+            
                
                 </div>
 
                 <button type="submit" className="w-full mb-4 text-[18px] mt-6 rounded-full 
-                bg-white text-blue-700 hover:bg-blue-300 hover:text-white py-2 transition-colors duration-300"><Link>Register</Link></button>
+                bg-white text-blue-700 hover:bg-blue-300 hover:text-white py-2 transition-colors duration-300"><Link to="/Login">Register</Link></button>
                 <div>
                     <span className="text-blue-600 ">Already Create an Account? <Link to="/Login" className="text-blue-500">Login</Link></span>
                 </div>

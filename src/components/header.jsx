@@ -1,8 +1,9 @@
 import 'boxicons/css/boxicons.min.css';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import ThemeToggle from './Theme';
 import React, {useState} from 'react';
+import { auth, database } from "../../firebase";
+import { ref, push } from "firebase/database";
 
 
 
@@ -19,11 +20,6 @@ const header = () => {
             MobileMenus.classList.add('hidden')
         }
     }
-  //    const toggleTheme = () => {
-  //   const newTheme = theme === 'dark' ? 'light' : 'dark';
-  //   setTheme(newTheme);
-  //   document.documentElement.classList.toggle('dark', newTheme === 'dark');
-  // };
 
     const navigate = useNavigate();
   const handleSignIn = () => {
@@ -140,9 +136,6 @@ const header = () => {
                     </button>
             </div>
         </div>
-         {/* <div className='ml-4'>
-        <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-      </div> */}
     </header>
   )
 }
