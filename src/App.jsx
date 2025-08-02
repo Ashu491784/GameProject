@@ -5,13 +5,16 @@ import Header from "./components/header";
 import Hero from "./components/Hero";
 import Characters from "./components/Characters";
 import Arena from "./components/Arena";
-import Footer from "./components/footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Shop from "./components/Shop";
 import ThemeToggle from "./components/Theme";
 import MinigameScrean from "./components/MinigamesScreen";
 import GameStart from "./Games/GameStart";
+import Sound from "./Games/sound";
+import Quiz from "./quizGame/QuizScrean";
+import QuizDashboard from "./quizGame/QuizDashboard";
+import FinalScore from "./quizGame/Score";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -33,6 +36,11 @@ export const App = () => {
           <Route path="/Theme" element={<ThemeToggle />} />
           <Route path="/GameStart" element={<GameStart />} />
           <Route path="/Minigames" element={<MinigameScrean />} />
+          <Route path="/Sound" element={ <Sound />} />
+          <Route path="/Quiz" element={<Quiz />} />
+          <Route path="/QuizDashboard" element={<QuizDashboard />} />
+          <Route path="/FinalScore" element={<FinalScore />} />
+       
       </Routes>
     </BrowserRouter>
   );

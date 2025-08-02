@@ -34,6 +34,15 @@ const StartScreen = ({ startGame, muted }) => {
       sound.play();
     }
   };
+   const playbackground = () => {
+    if (!muted) {
+      const sound = new Howl({
+        src: ['/sound/birds39-forest-20772.mp3'],
+        volume: 0.7
+      });
+      sound.play();
+    }
+  };
 
   return (
     <motion.div
@@ -41,6 +50,7 @@ const StartScreen = ({ startGame, muted }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      onClick={playbackground}
     >
       <div className="bg-white bg-opacity-70 backdrop-blur-md p-8 rounded-3xl shadow-2xl max-w-5xl w-full">
         <motion.h1
