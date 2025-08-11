@@ -5,15 +5,21 @@ import {
   FaMusic,
   FaRedo,
   FaVolumeMute,
+  FaHome,
 } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function TikTac() {
+  const navigate = useNavigate();
   const [board, setBoard] = useState(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [gameActive, setGameActive] = useState(true);
   const [scores, setScores] = useState({ player: 0, computer: 0, ties: 0 });
   const [status, setStatus] = useState("Your turn (❌)");
+  const [winnerMessage, setWinnerMessage] = useState(""); 
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [musicEnabled, setMusicEnabled] = useState(true);
 
@@ -43,42 +49,46 @@ export default function TikTac() {
     }
   }, [musicEnabled]);
 
-  useEffect(() => {
-    if (!gameActive) return;
-    const winner = checkWin(currentPlayer);
-    if (winner) {
-      endGame(currentPlayer === "X" ? "player" : "computer");
-    } else if (checkDraw()) {
-      endGame("tie");
-    } else if (currentPlayer === "O") {
-      setStatus("Computer's turn 🤖");
-      setTimeout(() => computerMove(), 800);
-    }
-  }, [board]);
-
   const playSound = (soundRef) => {
     if (soundEnabled && soundRef?.current) {
       soundRef.current.currentTime = 0;
       soundRef.current.play().catch(() => {});
     }
   };
+   const handledashbord = () => {
+    navigate('/Minigames');
+  };
 
   const handleClick = (i) => {
     if (board[i] || !gameActive || currentPlayer !== "X") return;
-    makeMove(i, "X");
+
+    const newBoard = [...board];
+    newBoard[i] = "X";
+    setBoard(newBoard);
+    playSound(clickSound);
+
+    if (checkWin(newBoard, "X")) {
+      endGame("player");
+      return;
+    }
+    if (checkDraw(newBoard)) {
+      endGame("tie");
+      return;
+    }
+
+    setCurrentPlayer("O");
+    setStatus("Computer's turn 🤖");
   };
 
-  const makeMove = (index, player) => {
-    const newBoard = [...board];
-    newBoard[index] = player;
-    setBoard(newBoard);
-    setCurrentPlayer(player === "X" ? "O" : "X");
-    playSound(clickSound);
-  };
+ 
+  useEffect(() => {
+    if (currentPlayer === "O" && gameActive) {
+      const timer = setTimeout(() => computerMove(), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [currentPlayer, gameActive]);
 
   const computerMove = () => {
-    if (!gameActive) return;
-
     let move = findWinningMove("O") ?? findWinningMove("X");
 
     if (move === null && board[4] === null) move = 4;
@@ -96,7 +106,22 @@ export default function TikTac() {
     }
 
     if (move !== null) {
-      makeMove(move, "O");
+      const newBoard = [...board];
+      newBoard[move] = "O";
+      setBoard(newBoard);
+      playSound(clickSound);
+
+      if (checkWin(newBoard, "O")) {
+        endGame("computer");
+        return;
+      }
+      if (checkDraw(newBoard)) {
+        endGame("tie");
+        return;
+      }
+
+      setCurrentPlayer("X");
+      setStatus("Your turn (❌)");
     }
   };
 
@@ -109,25 +134,28 @@ export default function TikTac() {
     return null;
   };
 
-  const checkWin = (player) =>
+  const checkWin = (boardState, player) =>
     winPatterns.some((pattern) =>
-      pattern.every((index) => board[index] === player)
+      pattern.every((index) => boardState[index] === player)
     );
 
-  const checkDraw = () => board.every((cell) => cell !== null);
+  const checkDraw = (boardState) => boardState.every((cell) => cell !== null);
 
   const endGame = (winner) => {
     setGameActive(false);
     if (winner === "player") {
       setStatus("You Win! 🎉");
+      setWinnerMessage("🎉 Player Wins!");
       setScores((s) => ({ ...s, player: s.player + 1 }));
       playSound(winSound);
     } else if (winner === "computer") {
       setStatus("Computer Wins! 🤖");
+      setWinnerMessage("🤖 Computer Wins!");
       setScores((s) => ({ ...s, computer: s.computer + 1 }));
       playSound(loseSound);
     } else {
       setStatus("It's a Draw! 🤝");
+      setWinnerMessage("🤝 It's a Draw!");
       setScores((s) => ({ ...s, ties: s.ties + 1 }));
       playSound(drawSound);
     }
@@ -138,75 +166,88 @@ export default function TikTac() {
     setCurrentPlayer("X");
     setGameActive(true);
     setStatus("Your turn (❌)");
+    setWinnerMessage("");
   };
 
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-300 to-indigo-200 p-4">
-  <div className="bg-blue-950 bg-opacity-10 backdrop-blur-md rounded-3xl shadow-2xl p-8 w-full max-w-md text-center border border-b-blue-800 transition-all duration-500 hover:shadow-blue-950">
-    <h1 className="text-3xl font-bold mb-6 flex items-center justify-center gap-2 text-white drop-shadow">
-      <FaTimes className="text-red-400 animate-pulse" />
-      Tic-Tac-Toe
-      <FaCircle className="text-blue-300 animate-pulse" />
-    </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-300 to-indigo-600 p-4">
+      <div className="bg-blue-950 bg-opacity-10 backdrop-blur-md rounded-3xl shadow-2xl p-8 w-full max-w-md text-center border border-b-blue-800 transition-all duration-500 hover:shadow-blue-950">
+        <h1 className="text-3xl font-bold mb-6 flex items-center justify-center gap-2 text-white drop-shadow">
+          <FaTimes className="text-red-400 animate-pulse" />
+          Tic-Tac-Toe
+          <FaCircle className="text-blue-700 animate-pulse" />
+        </h1>
 
-    <div className="flex justify-between font-semibold mb-2 text-lg text-blue-950 tracking-wide">
-      <span>You</span>
-      <span>Tie</span>
-      <span>Computer</span>
-    </div>
-    <div className="flex justify-between font-semibold mb-6 text-xl bg-transparent text-blue-950">
-      <span className="transition duration-300 hover:scale-110">{scores.player}</span>
-      <span className="transition duration-300 hover:scale-110">{scores.ties}</span>
-      <span className="transition duration-300 hover:scale-110">{scores.computer}</span>
-    </div>
+        {winnerMessage && (
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-pink-300 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce">
+            {winnerMessage}
+          </div>
+        )}
 
-    <div className="grid grid-cols-3 gap-4 mb-6">
-      {board.map((cell, i) => (
-        <div
-          key={i}
-          className={`w-20 h-20 bg-white/10 rounded-xl text-4xl font-extrabold flex items-center justify-center text-white cursor-pointer transition-all duration-200 hover:scale-110 hover:bg-white/20 shadow-md ${
-            cell === "X"
-              ? "text-red-400 animate-[pop_0.3s_ease-in-out]"
-              : cell === "O"
-              ? "text-blue-300 animate-[pop_0.3s_ease-in-out]"
-              : ""
-          }`}
-          onClick={() => handleClick(i)}
-        >
-          {cell}
+        <div className="flex justify-between font-semibold mb-2 text-lg text-blue-950 tracking-wide">
+          <span>You</span>
+          <span>Tie</span>
+          <span>Computer</span>
         </div>
-      ))}
-    </div>
+        <div className="flex justify-between font-semibold mb-6 text-xl bg-transparent text-blue-950">
+          <span>{scores.player}</span>
+          <span>{scores.ties}</span>
+          <span>{scores.computer}</span>
+        </div>
 
-    <div className="text-white text-lg font-semibold mb-6 tracking-wide drop-shadow-sm animate-fade-in">
-      {status}
-    </div>
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {board.map((cell, i) => (
+            <div
+              key={i}
+              className={`w-20 h-20 bg-white/10 rounded-xl text-4xl font-extrabold flex items-center justify-center text-white cursor-pointer transition-all duration-200 hover:scale-110 hover:bg-white/20 shadow-md ${
+                cell === "X"
+                  ? "text-red-400 animate-[pop_0.3s_ease-in-out]"
+                  : cell === "O"
+                  ? "text-blue-700 animate-[pop_0.3s_ease-in-out]"
+                  : ""
+              }`}
+              onClick={() => handleClick(i)}
+            >
+              {cell}
+            </div>
+          ))}
+        </div>
 
-    <div className="flex justify-center gap-6">
-      <button
-        className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
-        title="Toggle Sound"
-        onClick={() => setSoundEnabled((prev) => !prev)}
-      >
-        {soundEnabled ? <FaVolumeUp /> : <FaVolumeMute />}
-      </button>
-      <button
-        className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
-        title="Toggle Music"
-        onClick={() => setMusicEnabled((prev) => !prev)}
-      >
-        <FaMusic />
-      </button>
-      <button
-        className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
-        title="Reset"
-        onClick={resetGame}
-      >
-        <FaRedo />
-      </button>
-    </div>
-  </div>
-</div>
+        <div className="text-white text-lg font-semibold mb-6 tracking-wide drop-shadow-sm animate-fade-in">
+          {status}
+        </div>
 
+        <div className="flex justify-center gap-6">
+          <button
+            className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
+            title="Toggle Sound"
+            onClick={() => setSoundEnabled((prev) => !prev)}
+          >
+            {soundEnabled ? <FaVolumeUp /> : <FaVolumeMute />}
+          </button>
+          <button
+            className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
+            title="Toggle Music"
+            onClick={() => setMusicEnabled((prev) => !prev)}
+          >
+            <FaMusic />
+          </button>
+          <button
+            className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
+            title="Reset"
+            onClick={resetGame}
+          >
+            <FaRedo />
+          </button>
+      
+             <button
+            className="p-3 bg-white/20 rounded-full text-white hover:bg-white/30 hover:scale-110 transition duration-300 shadow-md"
+            title="Reset" onClick={handledashbord}>   
+            <FaHome />
+          </button>
+         
+        </div>
+      </div>
+    </div>
   );
 }
