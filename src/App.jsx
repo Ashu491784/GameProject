@@ -15,6 +15,7 @@ import Sound from "./Games/sound";
 import Quiz from "./quizGame/QuizScrean";
 import QuizDashboard from "./quizGame/QuizDashboard";
 import FinalScore from "./quizGame/Score";
+import TikTac from "./TitikGame/TikTacGame";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -40,6 +41,7 @@ export const App = () => {
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/QuizDashboard" element={<QuizDashboard />} />
           <Route path="/FinalScore" element={<FinalScore />} />
+          <Route path="/TikTac" element={<TikTac />} />
        
       </Routes>
     </BrowserRouter>

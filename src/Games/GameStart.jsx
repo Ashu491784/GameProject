@@ -62,12 +62,21 @@ function GameStart() {
     setLevel("1");
     setGameState("start");
   };
+     const playbackground = () => {
+      if (!muted) {
+        const sound = new Howl({
+          src: ['/sound/newbg.mp3'],
+          volume: 0.7
+        });
+        sound.play();
+      }
+    };
 
   return (
     <div className="app">
       <motion.button
         className="fixed top-4 right-4 z-50 bg-white text-pink-600 p-3 rounded-full shadow-lg hover:bg-pink-50 focus:outline-none"
-        onClick={toggleMusic}
+        onClick={playbackground}
         whileHover={{ scale: 1.1, rotate: 10 }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, scale: 0 }}

@@ -9,20 +9,19 @@ const MinigameScrean = () => {
   const soundRef = useRef(null);
 
   useEffect(() => {
-    // Create and store the looping background sound
+   
     soundRef.current = new Howl({
       src: ["/sound/birds39-forest-20772.mp3"],
       volume: 0.7,
       loop: true,
     });
 
-    // Play if not muted on load
     if (!muted) {
       soundRef.current.play();
     }
 
     return () => {
-      // Stop sound on component unmount
+      
       if (soundRef.current) {
         soundRef.current.stop();
       }
