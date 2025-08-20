@@ -2,15 +2,12 @@ import "boxicons/css/boxicons.min.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { auth, database } from "../../firebase";
-import { ref, push } from "firebase/database";
 
 const header = () => {
   const [theme, setTheme] = useState("dark");
   const toggleMobileMenu = () => {
-    const MobileMenus = document.getElementById("MobileMenus"); //get mobile menu element
+    const MobileMenus = document.getElementById("MobileMenus");
 
-    //hidden class, remove it, otherWise add it
     if (MobileMenus.classList.contains("hidden")) {
       MobileMenus.classList.remove("hidden");
     } else {
@@ -28,7 +25,6 @@ const header = () => {
       className="py-1 px-7 flex justify-between 
     items-center fixed  top-0 z-50 w-full border-b-[0.3px] border-[#babaff] bg-transparent"
     >
-     
       <div className="flex lg:gap-14 gap-4 items-center">
         <img
           className="md:w-16 w-12"

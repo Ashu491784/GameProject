@@ -18,6 +18,7 @@ import FinalScore from "./quizGame/Score";
 import TikTac from "./TitikGame/TikTacGame";
 import FirstScrean from "./MainGameComponents/firstScreen";
 import LionKingBg from "./MainGameComponents/LionkingBg";
+import GameStarts from "./MainGameComponents/GameStart";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -44,8 +45,9 @@ export const App = () => {
           <Route path="/QuizDashboard" element={<QuizDashboard />} />
           <Route path="/FinalScore" element={<FinalScore />} />
           <Route path="/TikTac" element={<TikTac />} />
-           <Route path="/FirstScrean" element={<FirstScrean/>} />
+          <Route path="/FirstScrean" element={<FirstScrean/>} />
           <Route path="/LionKingBg" element={<LionKingBg/>} />
+          <Route path="/GameStarts" element={<GameStarts/>} />
       </Routes>
     </BrowserRouter>
   );

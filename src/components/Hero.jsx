@@ -1,9 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import {Link, Star} from "lucide-react";
-import {motion, AnimatePresence} from "framer-motion";
-import Spline from '@splinetool/react-spline';
 import { useNavigate } from "react-router-dom";
-
 
 const Hero = () => {
         const navigate = useNavigate();

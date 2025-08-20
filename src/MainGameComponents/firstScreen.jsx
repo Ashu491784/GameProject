@@ -20,11 +20,7 @@ const FirstScrean = () => {
 
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      
-
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center px-6 py-10">
-        {/* Logo */}
         <div className="flex lg:gap-14 gap-4 items-center mb-6">
           <motion.img
             initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
@@ -37,7 +33,6 @@ const FirstScrean = () => {
           />
         </div>
 
-        {/* Headings */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,7 +58,6 @@ const FirstScrean = () => {
           </motion.h2>
         </motion.div>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl">
           {cardData.map((card, index) => (
             <motion.div
