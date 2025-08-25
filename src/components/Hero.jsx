@@ -5,8 +5,6 @@ const Hero = () => {
         const handleClick = () => {
           navigate('/Login');
         };
-    
-  
   return (
     <main className='relative w-full h-screen overflow-hidden flex
     justify-center mb-[10%]'>

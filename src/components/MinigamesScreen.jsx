@@ -9,13 +9,11 @@ const MinigameScrean = () => {
   const soundRef = useRef(null);
 
   useEffect(() => {
-   
     soundRef.current = new Howl({
       src: ["/sound/birds39-forest-20772.mp3"],
       volume: 0.7,
       loop: true,
     });
-
     if (!muted) {
       soundRef.current.play();
     }
@@ -56,7 +54,6 @@ const MinigameScrean = () => {
       >
         {muted ? <FaVolumeMute size={20} /> : <FaVolumeUp size={20} />}
       </motion.button>
-
       <video
         src="/videos/bg2.mp4"
         autoPlay
@@ -65,14 +62,12 @@ const MinigameScrean = () => {
         playsInline
         className="w-full h-full object-cover absolute top-0 left-0 -z-10"
       ></video>
-
       <div className="text-center space-y-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl md:text-5xl font-extrabold text-red-50 drop-shadow-md"
-        >
+          className="text-4xl md:text-5xl font-extrabold text-red-50 drop-shadow-md">
           🎮 MINI GAME ZONE
         </motion.h2>
 
@@ -126,13 +121,11 @@ const MinigameScrean = () => {
               <img
                 src="/images/tiktaktoe.jpg"
                 alt="Quizz Game"
-                className="rounded-xl w-44 h-44 object-cover shadow-md border-4 border-red-500"
-              />
+                className="rounded-xl w-44 h-44 object-cover shadow-md border-4 border-red-500"/>
             </div>
             <button
               onClick={() => alert("Game starting...")}
-              className="bg-purple-300 hover:bg-blue-200 text-white hover:text-black font-bold py-2 px-6 rounded-full shadow-lg transition duration-200"
-            >
+              className="bg-purple-300 hover:bg-blue-200 text-white hover:text-black font-bold py-2 px-6 rounded-full shadow-lg transition duration-200">
               <Link to="/TikTac">Play Now 🎮</Link>
             </button>
           </div>

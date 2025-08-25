@@ -14,12 +14,10 @@ const header = () => {
       MobileMenus.classList.add("hidden");
     }
   };
-
   const navigate = useNavigate();
   const handleSignIn = () => {
     navigate("/login");
   };
-
   return (
     <header
       className="py-1 px-7 flex justify-between 
@@ -49,7 +47,6 @@ const header = () => {
           </button>
         </div>
       </div>
-
       <nav className="hidden md:flex lg:gap-8 gap-4">
         <a
           href="/Characters"
@@ -62,7 +59,6 @@ const header = () => {
         >
           <i className="bx bx-user-circle" /> Gamer
         </a>
-
         <a
           href="/Arena"
           className="relative py-1 text-lg hover:text-purple-300 
@@ -101,7 +97,6 @@ const header = () => {
       <button onClick={toggleMobileMenu} className="text-3xl p-2 md:hidden">
         <i className="bx bx-menu"></i>
       </button>
-
       <div
         id="MobileMenus"
         className="hidden fixed top-14 right-0 left-0 bg-black p-5 md:hidden"
@@ -118,7 +113,6 @@ const header = () => {
           >
             <i className="bx bx-user-circle" /> Gamer
           </a>
-
           <a
             href="#"
             className="relative py-1 text-lg hover:text-purple-300 
@@ -162,5 +156,4 @@ const header = () => {
     </header>
   );
 };
-
 export default header;

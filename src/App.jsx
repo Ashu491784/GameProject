@@ -8,7 +8,6 @@ import Arena from "./components/Arena";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Shop from "./components/Shop";
-import ThemeToggle from "./components/Theme";
 import MinigameScrean from "./components/MinigamesScreen";
 import GameStart from "./Games/GameStart";
 import Sound from "./Games/sound";
@@ -19,6 +18,7 @@ import TikTac from "./TitikGame/TikTacGame";
 import FirstScrean from "./MainGameComponents/firstScreen";
 import LionKingBg from "./MainGameComponents/LionkingBg";
 import GameStarts from "./MainGameComponents/GameStart";
+import Payment from "./components/payment";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -37,7 +37,6 @@ export const App = () => {
           <Route path="/Arena" element={<Arena />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/Theme" element={<ThemeToggle />} />
           <Route path="/GameStart" element={<GameStart />} />
           <Route path="/Minigames" element={<MinigameScrean />} />
           <Route path="/Sound" element={ <Sound />} />
@@ -48,6 +47,7 @@ export const App = () => {
           <Route path="/FirstScrean" element={<FirstScrean/>} />
           <Route path="/LionKingBg" element={<LionKingBg/>} />
           <Route path="/GameStarts" element={<GameStarts/>} />
+          <Route path="/Payment" element={<Payment/>} />
       </Routes>
     </BrowserRouter>
   );

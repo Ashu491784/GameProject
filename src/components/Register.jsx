@@ -1,7 +1,4 @@
-import {BiUser} from "react-icons/bi";
-import { AiOutlineUnlock } from "react-icons/ai";
 import { Link , useNavigate} from "react-router-dom";
-import { div, object } from "framer-motion/client";
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth, database, ref, push, set } from "../../firebase";
@@ -13,7 +10,6 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
   const handleSubmitev = async (e) => {
     e.preventDefault();
             console.log("Email:", email);
@@ -23,8 +19,7 @@ const Register = () => {
       setError("Passwords do not match");
       return;
     }
-
-    try {
+  try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
@@ -33,15 +28,12 @@ const Register = () => {
         email: user.email,
         uid: user.uid,
       });
-
       alert("User Registered Successfully!");
       navigate("/Login");
     } catch (error) {
       setError(error.message);
     }
   };
-
-
   return (
     <div className="text-white h-[100vh] flex justify-center items-center bg-cover">
           <video src='public\videos\girltheme.mp4' 
@@ -112,11 +104,9 @@ const Register = () => {
           <button
             type="submit"
             className="w-full mb-4 text-[18px] mt-6 rounded-full 
-            bg-white text-blue-700 hover:bg-blue-300 hover:text-white py-2 transition-colors duration-300"
-          >
+            bg-white text-blue-700 hover:bg-blue-300 hover:text-white py-2 transition-colors duration-300" >
             Register
           </button>
-
           <div className="text-sm">
             <span className="text-blue-300">Already have an account? </span>
             <Link to="/Login" className="text-blue-500 hover:underline">
@@ -125,11 +115,7 @@ const Register = () => {
           </div>
         </form>
       </div>
-    </div>
-   
-    
-               
-                
+    </div>            
   )
 }
 

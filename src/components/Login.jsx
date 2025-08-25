@@ -11,7 +11,6 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -20,7 +19,6 @@ const Login = () => {
       setError("Please enter both email and password.");
       return;
     }
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login success!");

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
 const GameStarts = () => {
   const mountRef = useRef(null);
@@ -28,69 +29,19 @@ const GameStarts = () => {
     light.position.set(5, 10, 5);
     scene.add(light);
 
-    // Tree trunk
-    const trunkGeometry = new THREE.CylinderGeometry(0.5, 0.5, 4, 32);
-    const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
-    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
-    scene.add(trunk);
-
-    // Tree leaves
-    const leavesGeometry = new THREE.SphereGeometry(2, 32, 32);
-    const leavesMaterial = new THREE.MeshStandardMaterial({ color: 0x228b22 });
-    const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
-    leaves.position.y = 3;
-    scene.add(leaves);
-
-   
-    // animal Body
-    const bodyGeometry = new THREE.SphereGeometry(1.0, 32, 32);
-    const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
-    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-    body.position.set(4, 1.5, 0); // gahata ekka hitanna passe
-
-    // White belly
-    const bellyGeometry = new THREE.SphereGeometry(0.8, 32, 32);
-    const bellyMaterial = new THREE.MeshStandardMaterial({ color: 0xfffff });
-    const belly = new THREE.Mesh(bellyGeometry, bellyMaterial);
-    belly.position.set(4, 1.5, 0.2);
-
-    // Head
-    const headGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const headMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
-    const head = new THREE.Mesh(headGeometry, headMaterial);
-    head.position.set(4, 2.5, 0);
-
-    // Beak
-    const beakGeometry = new THREE.ConeGeometry(0.15, 0.4, 32);
-    const beakMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 });
-    const beak = new THREE.Mesh(beakGeometry, beakMaterial);
-    beak.position.set(4, 2.5, 0.5);
-
-    // Eyes
-    const eyeGeometry = new THREE.SphereGeometry(0.08, 16, 16);
-    const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
-    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-    leftEye.position.set(3.85, 2.6, 0.3);
-    rightEye.position.set(4.15, 2.6, 0.3);
-
-    const pupilGeometry = new THREE.SphereGeometry(0.04, 16, 16);
-    const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
-    const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
-    const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
-    leftPupil.position.set(3.85, 2.6, 0.35);
-    rightPupil.position.set(4.15, 2.6, 0.35);
-
-    // Add penguin parts
-    scene.add(
-      body,
-      belly,
-      head,
-      beak,
-      leftEye,
-      rightEye,
-      leftPupil,
-      rightPupil
+    // 🌳 Load FBX model
+    const loader = new FBXLoader();
+    loader.load(
+      "/models/Tree_test.fbx",
+      (fbx) => {
+        fbx.scale.set(0.01, 0.01, 0.01); // FBX files are usually HUGE
+        fbx.position.set(0, 0, 0);
+        scene.add(fbx);
+      },
+      undefined,
+      (error) => {
+        console.error("FBX loading error:", error);
+      }
     );
 
     // Camera
@@ -100,12 +51,6 @@ const GameStarts = () => {
     // Animate
     const animate = () => {
       requestAnimationFrame(animate);
-
-      trunk.rotation.y += 0.01;
-      leaves.rotation.y += 0.01;
-      head.rotation.y += 0.02; // penguin head rotate
-      body.rotation.y += 0.005;
-
       renderer.render(scene, camera);
     };
     animate();
