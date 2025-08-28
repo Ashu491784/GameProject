@@ -20,6 +20,7 @@ import LionKingBg from "./MainGameComponents/LionkingBg";
 import GameStarts from "./MainGameComponents/GameStart";
 import Payment from "./components/payment";
 import CGameScrean from "./CaromGame/CGameScraen";
+import LiveChat from "./components/LiveChat";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -50,6 +51,7 @@ export const App = () => {
           <Route path="/GameStarts" element={<GameStarts/>} />
           <Route path="/Payment" element={<Payment/>} />
           <Route path="/CGameScrean" element={<CGameScrean/>} />
+          <Route path="/LiveChat" element={<LiveChat/>} />
       </Routes>
     </BrowserRouter>
   );
