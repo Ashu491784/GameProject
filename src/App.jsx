@@ -16,11 +16,12 @@ import QuizDashboard from "./quizGame/QuizDashboard";
 import FinalScore from "./quizGame/Score";
 import TikTac from "./TitikGame/TikTacGame";
 import FirstScrean from "./MainGameComponents/firstScreen";
-import LionKingBg from "./MainGameComponents/LionkingBg";
+import GamesCard from "./components/GamesCard";
 import GameStarts from "./MainGameComponents/GameStart";
 import Payment from "./components/payment";
 import CGameScrean from "./CaromGame/CGameScraen";
 import LiveChat from "./components/LiveChat";
+import GameCard from "./components/GamesCard"
 export const App = () => {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ export const App = () => {
             <>
               <Header />
               <Hero />
+              <GamesCard />
             </>
           }
         />
@@ -47,11 +49,11 @@ export const App = () => {
           <Route path="/FinalScore" element={<FinalScore />} />
           <Route path="/TikTac" element={<TikTac />} />
           <Route path="/FirstScrean" element={<FirstScrean/>} />
-          <Route path="/LionKingBg" element={<LionKingBg/>} />
           <Route path="/GameStarts" element={<GameStarts/>} />
           <Route path="/Payment" element={<Payment/>} />
           <Route path="/CGameScrean" element={<CGameScrean/>} />
           <Route path="/LiveChat" element={<LiveChat/>} />
+          <Route path="/GamesCard" element={<GamesCard/>} />
       </Routes>
     </BrowserRouter>
   );

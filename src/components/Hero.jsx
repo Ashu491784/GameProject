@@ -7,7 +7,7 @@ const Hero = () => {
         };
   return (
     <main className='relative w-full h-screen overflow-hidden flex
-    justify-center mb-[10%]'>
+    justify-center'>
         <video src='public\videos\herenewone.mp4' 
         autoPlay 
          muted 
