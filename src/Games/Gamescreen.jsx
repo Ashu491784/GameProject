@@ -11,6 +11,7 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState(null);
+  const [Image, setImage] = useState(null);
   const [gamePaused, setGamePaused] = useState(false);
   const [timer, setTimer] = useState(60);
 
@@ -33,6 +34,10 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
     return () => clearInterval(interval);
   }, [gamePaused, showFeedback]);
 
+  const ImageSets = () => {
+    setImage(true);
+    
+  }
   const handleSubmit = () => {
     setGamePaused(true);
     const result = calculateScore(

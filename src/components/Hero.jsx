@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-
 const Hero = () => {
         const navigate = useNavigate();
         const handleClick = () => {
@@ -8,7 +7,7 @@ const Hero = () => {
   return (
     <main className='relative w-full h-screen overflow-hidden flex
     justify-center'>
-        <video src='public\videos\herenewone.mp4' 
+        <video src='public\videos\hero.mp4' 
         autoPlay 
          muted 
           loop
@@ -36,18 +35,6 @@ const Hero = () => {
     Notice: Illuvium Game are in Beta.
     Participate involves risk. Read our full Disclaimer here.
     </p>              
-    </div>
-
-    <div className='absolute bottom-40 lg:right-24 
-    right-5 mt-24 animate-bounce sm:inline-block hidden'>
-        <div className='flex flex-col items-center'>
-            <div className='w-8 h-12 border-2 border-[#babaff] rounded-full flex 
-            justify-center pt-1'>
-                <div className='w-1 h-3 bg-[#babaff]
-                 rounded-full animate-pulse'></div>
-            </div>
-            <p className='text-[#babaff]'>Scrool Down</p>
-        </div>
     </div>
     </main>
   )

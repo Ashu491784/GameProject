@@ -21,7 +21,8 @@ import GameStarts from "./MainGameComponents/GameStart";
 import Payment from "./components/payment";
 import CGameScrean from "./CaromGame/CGameScraen";
 import LiveChat from "./components/LiveChat";
-import GameCard from "./components/GamesCard"
+import Message from "./components/Message";
+import Footer from "./components/Footer"
 export const App = () => {
   return (
     <BrowserRouter>
@@ -33,6 +34,8 @@ export const App = () => {
               <Header />
               <Hero />
               <GamesCard />
+              <Message/>
+              <Footer/>
             </>
           }
         />
@@ -54,6 +57,7 @@ export const App = () => {
           <Route path="/CGameScrean" element={<CGameScrean/>} />
           <Route path="/LiveChat" element={<LiveChat/>} />
           <Route path="/GamesCard" element={<GamesCard/>} />
+          <Route path="/Message" element={<Message/>} />
       </Routes>
     </BrowserRouter>
   );

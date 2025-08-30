@@ -39,7 +39,7 @@ const header = () => {
           </button>
 
           <button
-            className="h-8 px-6 bg-gradient-to-r from-gray-600 to-gray-400 rounded-lg font-medium 
+            className="h-8 px-6 bg-gradient-to-r from-purple-300 to-blue-300 rounded-lg font-medium 
             text-nowrap hover:opacity-70 transition-all duration-300"
             onClick={handleSignIn}
           >
@@ -54,7 +54,7 @@ const header = () => {
             transition-colors duration-300
              after:content-['']
               after:absolute after:w-0 
-              after:h-0.5  after:bg-purple-400 after:left-0 after:bottom-0 
+              after:h-0.5  after:bg-pink-700 after:left-0 after:bottom-0 
               after:transition-all hover:after:w-full text-nowrap"
         >
           <i className="bx bx-user-circle" /> Gamer
@@ -65,7 +65,7 @@ const header = () => {
             transition-colors duration-300
              after:content-['']
               after:absolute after:w-0 
-              after:h-0.5  after:bg-purple-400 after:left-0 after:bottom-0 
+              after:h-0.5  after:bg-pink-700 after:left-0 after:bottom-0 
               after:transition-all hover:after:w-full text-nowrap"
         >
           <i className="bx bx-diamond" /> Arena
@@ -75,7 +75,7 @@ const header = () => {
           className="relative py-1 text-lg hover:text-purple-300 
             transition-colors duration-300 after:content-['']
               after:absolute after:w-0 
-              after:h-0.5  after:bg-purple-400 after:left-0 after:bottom-0 
+              after:h-0.5  after:bg-pink-700 after:left-0 after:bottom-0 
               after:transition-all hover:after:w-full text-nowrap"
         >
           <i className="bx bx-chevrons-up" /> MiniGame
@@ -86,7 +86,7 @@ const header = () => {
             transition-colors duration-300
              after:content-['']
               after:absolute after:w-0 
-              after:h-0.5  after:bg-purple-400 after:left-0 after:bottom-0 
+              after:h-0.5  after:bg-pink-700 after:left-0 after:bottom-0 
               after:transition-all hover:after:w-full text-nowrap"
         >
           <i className="bx bx-store" /> Shop

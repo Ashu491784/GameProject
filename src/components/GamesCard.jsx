@@ -11,17 +11,21 @@ const GamesCard = () => {
     {src: "/images/Tounship.jpeg",text: "This is a Tounship game and best clash game",price: "$8",rating: 4,},
     {src: "/images/candycrush.jpeg",text: "Candy crush game is lighting candy game.",price: "$5",rating: 3,},
     {src: "/images/angrybird.jpeg",text: "Angry bird is best blass power full bird game",price: "$13",rating: 4,},
-    {src: "/images/templeruns.jpeg",text: "Hakuna Matata vibes with friends.",price: "$8",rating: 5,},
-    {src: "/images/lood.jpeg",text: "Hakuna Matata vibes with friends.",price: "$3",rating: 5,},
-    {src: "/images/templerun.jpeg",text: "Hakuna Matata vibes with friends.",price: "$2.5",rating: 5,},
-    {src: "/images/frifire.jpeg",text: "Hakuna Matata vibes with friends.",price: "$6.2",rating: 5,},
-    {src: "/images/clashof.jpeg",text: "Hakuna Matata vibes with friends.",price: "$5",rating: 5,},
-    {src: "/images/cook.jpeg",text: "Hakuna Matata vibes with friends.",price: "$9",rating: 5,},
-    {src: "/images/bubble.jpeg",text: "Hakuna Matata vibes with friends.",price: "$4",rating: 5,},
-    {src: "/images/makeup2.jpeg",text: "Hakuna Matata vibes with friends.",price: "$12",rating: 5,},
-    {src: "/images/tom.jpeg",text: "Hakuna Matata vibes with friends.",price: "$10",rating: 5,},
-    {src: "/images/vita.jpeg",text: "Hakuna Matata vibes with friends.",price: "$8",rating: 5,},
+    {src: "/images/templeruns.jpeg",text: "Temple run is the most famouse runner game.",price: "$8",rating: 5,},
+    {src: "/images/lood.jpeg",text: "Pool Game is the best ball game",price: "$3",rating: 3,},
+    {src: "/images/templerun.jpeg",text: "Next lavel game of temple run",price: "$2.5",rating: 5,},
+    {src: "/images/frifire.jpeg",text: "Best shooting game is frifire",price: "$6.2",rating: 5,},
+    {src: "/images/clashof.jpeg",text: "Next lavel shooting game.",price: "$5",rating: 4,},
+    {src: "/images/cook.jpeg",text: "Best cookin game for cute girls",price: "$9",rating: 5,},
+    {src: "/images/bubble.jpeg",text: "You can shoot boobless.",price: "$4",rating: 2,},
+    {src: "/images/makeup2.jpeg",text: "",price: "$12",rating: 3,},
+    {src: "/images/tom.jpeg",text: "Girls makeup game for girls and chidrens",price: "$10",rating: 4,},
+    {src: "/images/vita.jpeg",text: "Hakuna Matata vibes with friends.",price: "$8",rating: 4,},
     {src: "/images/sniper.jpeg",text: "Hakuna Matata vibes with friends.",price: "$6",rating: 5,},
+    {src: "/images/swim.jpg",text: "Hakuna Matata vibes with friends.",price: "$4",rating: 3,},
+    {src: "/images/pool.jpg",text: "Hakuna Matata vibes with friends.",price: "$5.3",rating: 3,},
+    {src: "/images/food.jpeg",text: "Hakuna Matata vibes with friends.",price: "$2",rating: 2,},
+    {src: "/images/car.jpeg",text: "Hakuna Matata vibes with friends.",price: "$7",rating: 5,},
   ];
 
   return (
@@ -34,7 +38,7 @@ const GamesCard = () => {
     Explore our collection of amazing games
   </p>
 </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 mt-20 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 mt-20 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6">
         {cardImages.map((item, i) => (
           <motion.div
             key={i}

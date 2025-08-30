@@ -7,8 +7,6 @@ const GameStarts = () => {
 
   useEffect(() => {
     if (!mountRef.current) return;
-
-    // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,

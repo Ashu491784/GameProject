@@ -1,21 +1,35 @@
-// CGameScreen.jsx
 import { useState, useEffect, useRef } from "react";
 import * as THREE from 'three';
 
-const CGameScreen = () => {
+const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
   const [p1Score, setP1Score] = useState(0);
   const [p2Score, setP2Score] = useState(0);
-  const [coinsLeft, setCoinsLeft] = useState(9);
+  const [coinsLeft, setCoinsLeft] = useState(20);
   const [state, setState] = useState("Aiming");
   const [turn, setTurn] = useState("P1");
   const [power, setPower] = useState(0);
+  const [opponentName, setOpponentName] = useState("Waiting...");
+  const [chatMessages, setChatMessages] = useState([]);
+  const [messageInput, setMessageInput] = useState("");
 
   const canvasRef = useRef(null);
   const gameInstance = useRef(null);
 
   useEffect(() => {
     if (canvasRef.current && !gameInstance.current) {
-      gameInstance.current = initCaromGame(canvasRef.current, {
+      // Clear any existing content in the container
+      while (canvasRef.current.firstChild) {
+        canvasRef.current.removeChild(canvasRef.current.firstChild);
+      }
+      
+      // Create a new canvas element
+      const canvas = document.createElement('canvas');
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.display = 'block';
+      canvasRef.current.appendChild(canvas);
+      
+      gameInstance.current = initCaromGame(canvas, {
         onUpdateScore: (p1, p2) => {
           setP1Score(p1);
           setP2Score(p2);
@@ -28,26 +42,20 @@ const CGameScreen = () => {
     }
 
     return () => {
-      // Cleanup Three.js resources when component unmounts
       if (gameInstance.current) {
-        const { renderer, scene } = gameInstance.current;
-        if (renderer) {
-          renderer.dispose();
-          if (renderer.domElement && renderer.domElement.parentNode) {
-            renderer.domElement.parentNode.removeChild(renderer.domElement);
-          }
-        }
-        if (scene) {
-          while(scene.children.length > 0) { 
-            scene.remove(scene.children[0]); 
+        const { cleanup } = gameInstance.current;
+        if (cleanup) cleanup();
+        
+        if (canvasRef.current) {
+          while (canvasRef.current.firstChild) {
+            canvasRef.current.removeChild(canvasRef.current.firstChild);
           }
         }
       }
     };
   }, []);
 
-  // Game initialization function
-  const initCaromGame = (container, callbacks) => {
+  const initCaromGame = (canvas, callbacks) => {
     // Game constants
     const boardSize = 50;
     const half = boardSize / 2;
@@ -65,14 +73,30 @@ const CGameScreen = () => {
     const tableZ = 0;
 
     // Renderer/Scene/Camera
-    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: container });
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true, 
+      canvas,
+      alpha: true
+    });
+    
+    // Set the size based on the container, not the window
+    const container = canvas.parentElement;
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#0b0f14');
 
-    const camera = new THREE.OrthographicCamera(-60, 60, 34, -34, 0.1, 1000);
+    const aspect = container.clientWidth / container.clientHeight;
+    const viewSize = 68;
+    const camera = new THREE.OrthographicCamera(
+      -viewSize * aspect / 2,
+      viewSize * aspect / 2,
+      viewSize / 2,
+      -viewSize / 2,
+      0.1,
+      1000
+    );
     camera.position.set(0, 0, 100);
     camera.lookAt(0, 0, 0);
 
@@ -520,13 +544,14 @@ const CGameScreen = () => {
     animationId = requestAnimationFrame(tick);
 
     function onResize(){
+      const container = canvas.parentElement;
       renderer.setSize(container.clientWidth, container.clientHeight);
-      const viewH = 68;
       const aspect = container.clientWidth / container.clientHeight;
-      camera.left   = -viewH * aspect / 2;
-      camera.right  =  viewH * aspect / 2;
-      camera.top    =  viewH / 2;
-      camera.bottom = -viewH / 2;
+      const viewSize = 68;
+      camera.left   = -viewSize * aspect / 2;
+      camera.right  =  viewSize * aspect / 2;
+      camera.top    =  viewSize / 2;
+      camera.bottom = -viewSize / 2;
       camera.updateProjectionMatrix();
     }
 
@@ -557,10 +582,40 @@ const CGameScreen = () => {
     };
   };
 
+  const sendChatMessage = () => {
+    if (messageInput.trim()) {
+      setChatMessages([...chatMessages, { sender: playerName, text: messageInput }]);
+      setMessageInput("");
+    }
+  };
+
   return (
     <div className="relative w-full h-screen bg-[#0b0f14] overflow-hidden">
+      {/* Game info header */}
+      <div className="absolute top-0 left-0 right-0 z-20 bg-[#111827cc] p-3 flex justify-between items-center">
+        <div className="text-white font-sans">
+          <div className="text-lg font-bold">Carrom Game</div>
+          <div className="text-sm">Game Code: <span className="font-mono">{gameCode}</span></div>
+        </div>
+        <div className="flex space-x-4">
+          <div className="text-white bg-blue-600 px-3 py-1 rounded-md">
+            You: <b>{playerName}</b>
+          </div>
+          <div className="text-white bg-green-600 px-3 py-1 rounded-md">
+            Opponent: <b>{opponentName}</b>
+          </div>
+          <button 
+            onClick={onLeaveGame}
+            className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition"
+          >
+            Leave Game
+          </button>
+        </div>
+      </div>
+
       {/* Power bar */}
-      <div className="absolute top-3 left-3 z-10 p-2 bg-white/90 rounded-xl shadow-lg">
+      <div className="absolute top-16 left-3 z-10 p-2 bg-white/90 rounded-xl shadow-lg">
+        <div className="text-xs font-bold text-center mb-1 text-gray-700">POWER</div>
         <div className="h-1.5 w-40 bg-gray-300 rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-600 transition-all duration-75"
@@ -570,12 +625,12 @@ const CGameScreen = () => {
       </div>
 
       {/* Scores & game info */}
-      <div className="absolute top-3 right-3 z-10 text-white font-sans space-y-2">
+      <div className="absolute top-16 right-3 z-10 text-white font-sans space-y-2">
         <div className="bg-[#111827cc] px-3 py-2 rounded-xl">
-          P1 Score: <b>{p1Score}</b>
+          {playerName} (P1): <b>{p1Score}</b>
         </div>
         <div className="bg-[#111827cc] px-3 py-2 rounded-xl">
-          P2 Score: <b>{p2Score}</b>
+          {opponentName} (P2): <b>{p2Score}</b>
         </div>
         <div className="bg-[#111827cc] px-3 py-2 rounded-xl">
           Coins left: <b>{coinsLeft}</b>
@@ -588,6 +643,35 @@ const CGameScreen = () => {
         </div>
       </div>
 
+      {/* Chat panel */}
+      <div className="absolute bottom-3 right-3 z-10 w-80 bg-[#111827cc] rounded-xl overflow-hidden flex flex-col">
+        <div className="p-3 bg-[#1f2937] text-white font-bold">Chat</div>
+        <div className="flex-1 p-3 overflow-y-auto max-h-40">
+          {chatMessages.map((msg, index) => (
+            <div key={index} className="mb-2">
+              <span className="font-bold text-blue-300">{msg.sender}:</span> 
+              <span className="text-white ml-1">{msg.text}</span>
+            </div>
+          ))}
+        </div>
+        <div className="p-2 border-t border-gray-700 flex">
+          <input
+            type="text"
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+            placeholder="Type a message..."
+            className="flex-1 bg-gray-800 text-white rounded-l-md px-3 py-2 focus:outline-none"
+          />
+          <button 
+            onClick={sendChatMessage}
+            className="bg-blue-600 text-white px-3 py-2 rounded-r-md hover:bg-blue-700 transition"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+
       {/* Instructions */}
       <div className="absolute bottom-3 left-3 z-10 text-white font-sans opacity-80 bg-[#111827cc] p-2 rounded-xl">
         <p>💡 Click and drag to aim and shoot</p>
@@ -595,13 +679,116 @@ const CGameScreen = () => {
         <p>💡 R: Reset game | Space: Reset shot | P: Pause</p>
       </div>
 
-      {/* Game canvas */}
-      <canvas 
+      {/* Game canvas container - FIXED */}
+      <div 
         ref={canvasRef} 
-        className="w-full h-full block"
+        className="absolute top-16 left-0 w-full h-[calc(100%-4rem)]"
       />
     </div>
   );
 };
 
-export default CGameScreen;
+// Lobby component for joining games
+const Lobby = ({ onJoinGame, onCreateGame }) => {
+  const [playerName, setPlayerName] = useState("");
+  const [gameCode, setGameCode] = useState("");
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 flex items-center justify-center p-4">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 max-w-md w-full shadow-2xl">
+        <h1 className="text-4xl font-bold text-white text-center mb-2">Carrom Game</h1>
+        <p className="text-white/80 text-center mb-8">Play carrom online with friends</p>
+        
+        <div className="mb-6">
+          <label className="block text-white mb-2">Your Name</label>
+          <input
+            type="text"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your name"
+          />
+        </div>
+        
+        <div className="mb-8">
+          <label className="block text-white mb-2">Game Code</label>
+          <input
+            type="text"
+            value={gameCode}
+            onChange={(e) => setGameCode(e.target.value.toUpperCase())}
+            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter game code"
+          />
+        </div>
+        
+        <div className="flex flex-col space-y-4">
+          <button
+            onClick={() => onCreateGame(playerName)}
+            disabled={!playerName}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Create New Game
+          </button>
+          
+          <button
+            onClick={() => onJoinGame(playerName, gameCode)}
+            disabled={!playerName || !gameCode}
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Join Game
+          </button>
+        </div>
+        
+        <div className="mt-8 text-white/60 text-sm">
+          <p className="mb-2">How to play:</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li>Create a game and share the code with a friend</li>
+            <li>Or join an existing game with a code</li>
+            <li>Take turns to pocket coins and the queen</li>
+            <li>First to reach 21 points wins!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main component that handles the game state
+const MultiplayerCarromGame = () => {
+  const [gameState, setGameState] = useState("lobby"); // lobby, playing
+  const [playerName, setPlayerName] = useState("");
+  const [gameCode, setGameCode] = useState("");
+
+  const handleCreateGame = (name) => {
+    setPlayerName(name);
+    // Generate a random game code
+    const code = Math.random().toString(36).substring(2, 7).toUpperCase();
+    setGameCode(code);
+    setGameState("playing");
+  };
+
+  const handleJoinGame = (name, code) => {
+    setPlayerName(name);
+    setGameCode(code);
+    setGameState("playing");
+  };
+
+  const handleLeaveGame = () => {
+    setGameState("lobby");
+    setGameCode("");
+  };
+
+  if (gameState === "lobby") {
+    return <Lobby onJoinGame={handleJoinGame} onCreateGame={handleCreateGame} />;
+  }
+
+  return (
+    <CGameScreen 
+      gameCode={gameCode} 
+      playerName={playerName} 
+      onLeaveGame={handleLeaveGame}
+    />
+  );
+};
+
+export default MultiplayerCarromGame;
