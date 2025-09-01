@@ -1,8 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import {BiUser} from "react-icons/bi";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import { AiOutlineUnlock } from 'react-icons/ai';
 import { useState } from "react";
 
 const Login = () => {
@@ -49,7 +47,7 @@ const Login = () => {
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform -translate-y-6 
             scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
             peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Your Email</label>
-           {/* <BiUser className="absolute top-4 ring-4 "/> */}
+         
            
             </div>
              <div className="relative my-4">
@@ -59,7 +57,6 @@ const Login = () => {
             <label htmlFor="" className="absolute text-sm text-white duration-300 transform  -translate-y-6 
             scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-focus:dark:text-blue-500 
             peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:translate-y-6 ">Your Password</label>
-           {/* <AiOutlineUnlock className="absolute top-4 ring-4"/> */}
            
             </div>
             <div className="flex justify-between items-center">
@@ -70,7 +67,7 @@ const Login = () => {
                 <Link to='' className="text-blue-500 ">Forget Password?</Link>
             </div>
             <button type="submit" className="w-full mb-4 text-[18px] mt-6 rounded-full 
-            bg-white text-blue-700 hover:bg-blue-200 hover:text-white py-2 transition-colors duration-300"><Link to="/Hero">Login</Link></button>
+            bg-white text-blue-700 hover:bg-blue-200 hover:text-white py-2 transition-colors duration-300"><Link to="/CGameScrean">Login</Link></button>
            <div>
                 <span className="text-blue-500">New Here? <Link to="/register" className="text-blue-500">Create an Account</Link></span>
 </div>

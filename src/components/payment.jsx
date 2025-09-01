@@ -74,7 +74,7 @@ const Payment = () => {
               className="p-6 space-y-5"
               onSubmit={paymentMethod === "card" ? handleCardPayment : (e) => e.preventDefault()}
             >
-              {/* Email */}
+              
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
                   User Email
@@ -91,7 +91,6 @@ const Payment = () => {
                 {isValidEmail === false && <p className="text-red-600 text-sm">❌ Email not registered</p>}
               </div>
 
-              {/* Payment Method */}
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
                   Payment Method
@@ -110,7 +109,6 @@ const Payment = () => {
                 </select>
               </div>
 
-              {/* Package */}
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
                   Package
@@ -131,7 +129,6 @@ const Payment = () => {
                 </select>
               </div>
 
-              {/* Summary */}
               <div className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 p-4">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-slate-600 dark:text-slate-300">Subtotal</span>
@@ -147,7 +144,7 @@ const Payment = () => {
                 </div>
               </div>
 
-              {/* Payment Buttons */}
+           
               {paymentMethod === "card" && (
                 <button
                   type="submit"
@@ -185,7 +182,7 @@ const Payment = () => {
                 </div>
               )}
 
-              {/* Cancel */}
+          
               <div className="mt-3 text-center">
                 <Link
                   to="/"
