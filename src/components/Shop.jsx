@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaCrown, FaStar, FaCheck, FaGem, FaRegSmileBeam } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 
 const Shop = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -70,7 +71,6 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-700 to-pink-400 text-white">
-      {/* Header Section */}
       <header className="pt-16 pb-8 text-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500">
           Choose Your Plan
@@ -80,7 +80,6 @@ const Shop = () => {
         </p>
       </header>
 
-      {/* Pricing Plans */}
       <section className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {plans.map((plan) => (
@@ -94,7 +93,6 @@ const Shop = () => {
               onMouseEnter={() => setSelectedPlan(plan.id)}
               onMouseLeave={() => setSelectedPlan(null)}
             >
-              {/* Popular Badge */}
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 text-gray-900 px-4 py-1 rounded-full text-sm font-bold z-10">
                   MOST POPULAR
@@ -102,23 +100,18 @@ const Shop = () => {
               )}
               
               <div className="p-6 flex flex-col h-full">
-                {/* Plan Icon */}
                 <div className="flex justify-center mb-4">
                   <div className="p-3 rounded-full bg-gray-700/50 text-2xl">
                     {plan.icon}
                   </div>
                 </div>
                 
-                {/* Plan Name */}
                 <h2 className="text-2xl font-bold text-center mb-2">{plan.name}</h2>
                 
-                {/* Price */}
                 <div className="text-center mb-4">
                   <span className="text-4xl font-extrabold">{plan.price}</span>
                   <span className="text-gray-400 ml-2">{plan.period}</span>
                 </div>
-                
-                {/* Features List */}
                 <ul className="space-y-3 mb-6 flex-grow">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start">
@@ -128,14 +121,13 @@ const Shop = () => {
                   ))}
                 </ul>
                 
-                {/* CTA Button */}
                 <button className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300
                   ${plan.popular 
                     ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-gray-900' 
                     : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
                   }`}
-                >
-                  {plan.cta}
+                > <Link to="/Payment"> {plan.cta}</Link>
+                 
                 </button>
               </div>
             </div>
@@ -143,7 +135,6 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="container mx-auto px-4 py-12 max-w-4xl">
         <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -173,7 +164,6 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="text-center py-8 text-gray-400 text-sm">
         <p>Questions? Contact us at support@gamehub.com</p>
         <p className="mt-2">© 2023 GameHub. All rights reserved.</p>

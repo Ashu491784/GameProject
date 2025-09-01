@@ -6,6 +6,7 @@ import CharacterMinigame from "./CharacterMinigame";
 import FeedbackMinigame from "./feedbackminigame";
 import { ChallengesMinigame } from "../Minigamejs/challengeminigame";
 import { calculateScore } from "../Minigamejs/Scoreminigame";
+import { characters } from "../Minigamejs/Character";  
 
 const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -16,6 +17,8 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
   const [timer, setTimer] = useState(60);
 
   const currentChallenge = ChallengesMinigame?.[level - 1];
+
+  const selectedCharacter = characters.find(c => c.id === character);
 
   useEffect(() => {
     if (gamePaused || showFeedback) return;
@@ -36,8 +39,8 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
 
   const ImageSets = () => {
     setImage(true);
-    
   }
+
   const handleSubmit = () => {
     setGamePaused(true);
     const result = calculateScore(
@@ -85,7 +88,7 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
 
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-4"
+      className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-500 to-yellow-100 p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -100,7 +103,7 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
         </button>
 
         <div className="text-right">
-          <p className="text-xl font-semibold text-pink-600">⏱️ {timer}</p>
+          <p className="text-xl font-semibold text-pink-600">⏱ {timer}</p>
           <p className="text-sm text-gray-600">
             Level {level} of {ChallengesMinigame.length}
           </p>
@@ -139,7 +142,7 @@ const GameScreen = ({ endGame, level, setLevel, character, sounds, muted }) => {
 
         <div className="lg:col-span-2 flex flex-col gap-6">
           <CharacterMinigame
-            character={character} 
+            character={selectedCharacter}
             selectedItems={selectedItems}
             removeItem={removeItem}
             feedback={feedback}

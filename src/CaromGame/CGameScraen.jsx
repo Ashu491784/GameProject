@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
   const [p1Score, setP1Score] = useState(0);
   const [p2Score, setP2Score] = useState(0);
-  const [coinsLeft, setCoinsLeft] = useState(20);
+  const [coinsLeft, setCoinsLeft] = useState(30);
   const [state, setState] = useState("Aiming");
   const [turn, setTurn] = useState("P1");
   const [power, setPower] = useState(0);
@@ -689,7 +689,7 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
          \You can play with friends and invite more registerd players.Enjoy your round and play hardly...!!!
         </p>
       </div>
-      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 max-w-md w-full shadow-2xl overflow-hidden">
+      <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 max-w-md w-full shadow-2xl overflow-hidden">
         <h1 className="text-4xl font-bold text-white text-center mb-2">Carrom Game</h1>
         <p className="text-white/80 text-center mb-8">Play carrom online with friends</p>
         
@@ -713,6 +713,7 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter game code"
           />
+          <p className="text-white/60 text-sm mt-2">Ask your friend for the game code to join</p>
         </div>
         
         <div className="flex flex-col space-y-4">
@@ -733,13 +734,30 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
           </button>
         </div>
         
-        <div className="mt-8 text-white/60 text-sm">
-          <p className="mb-2">How to play:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Create a game and share the code with a friend</li>
-            <li>Or join an existing game with a code</li>
-            <li>Take turns to pocket coins and the queen</li>
-            <li>First to reach 21 points wins!</li>
+       <div className="bg-black/20 rounded-xl p-5 mt-3">
+          <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            How to Play
+          </h3>
+          <ul className="space-y-2">
+            <li className="flex items-start">
+              <span className="text-cyan-400 mr-2">•</span>
+              <span className="text-white/80">Create a game and share the code with friends</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-cyan-400 mr-2">•</span>
+              <span className="text-white/80">Join an existing game with a code</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-cyan-400 mr-2">•</span>
+              <span className="text-white/80">Take turns to pocket coins and the queen</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-cyan-400 mr-2">•</span>
+              <span className="text-white/80">First to reach 21 points wins!</span>
+            </li>
           </ul>
         </div>
       </div>

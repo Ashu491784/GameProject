@@ -19,8 +19,7 @@ const Login = () => {
     }
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login success!");
-      navigate("/");
+      navigate("/CGameScrean");
     } catch (err) {
       console.error(err);
       setError("Invalid email or password!");

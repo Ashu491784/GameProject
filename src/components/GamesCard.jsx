@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaStar, FaSearch, FaShoppingCart, FaUser, FaGamepad } from "react-icons/fa";
 import { Link} from "react-router-dom";
-import Payment from "./payment";
 
 const GamesCard = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,7 +35,7 @@ const GamesCard = () => {
     {id: 20, src: "/images/car.jpeg", text: "Racing madness on wheels", price: "$7", rating: 5, category: "sports", downloads: "120M+"},
   ];
 
-  // Filter and sort games
+
   const filteredGames = cardImages
     .filter(game => {
       const matchesSearch = game.text.toLowerCase().includes(searchTerm.toLowerCase());
@@ -61,7 +60,6 @@ const GamesCard = () => {
         </p>
       </div>
 
-      {/* searchbar */}
       <div className="max-w-screen-2xl mx-auto px-4 mb-8">
         <div className="flex flex-wrap gap-4 justify-center items-center bg-gray-800 p-4 rounded-xl">
           <div className="flex items-center space-x-2">
@@ -127,7 +125,6 @@ const GamesCard = () => {
               animate={{ opacity: 1,scale: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              {/* Game Image */}
               <div className="relative pt-[70%]">
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10" />
                 <div className="absolute top-2 right-2 bg-purple-600 text-xs px-2 py-1 rounded-md z-20">

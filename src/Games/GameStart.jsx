@@ -48,7 +48,7 @@ function GameStart() {
     if (muted) sounds.background.play();
   };
 
-  //end game
+ 
   const endGame = (finalScore) => {
     setScore(finalScore);
     setGameState("end");
@@ -56,7 +56,7 @@ function GameStart() {
     if (!muted) sounds.win.play();
   };
 
-  //restart game
+
   const restartGame = () => {
     setScore(0);
     setLevel("1");
