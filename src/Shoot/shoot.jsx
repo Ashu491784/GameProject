@@ -27,23 +27,32 @@ const Shoot = () => {
     }
   }, []);
 
+  const handleStart = () => {
+    setIsGameOver(false);
+    startGame();
+  };
+
+  const handleRestart = () => {
+    setIsGameOver(false);
+    restartGame();
+  };
+
   const buttons = [
-    { label: "Start", onClick: startGame, gradient: "from-green-400 to-green-600" },
-    { label: isPaused ? "Resume" : "Pause", onClick: togglePause, gradient: "from-yellow-400 to-yellow-600" },
-    { label: "Restart", onClick: restartGame, gradient: "from-red-400 to-red-600" },
+    { label: "Start", onClick: handleStart, gradient: "from-green-400 to-blue-600" },
+    { label: isPaused ? "Resume" : "Pause", onClick: togglePause, gradient: "from-yellow-400 to-green-500" },
+    { label: "Restart", onClick: handleRestart, gradient: "from-red-400 to-red-800" },
   ];
 
   return (
     <div className="relative flex flex-col lg:flex-row items-start justify-center w-full h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 text-white">
-      
-      {/* Sidebar */}
+
       <motion.div
         className="w-full lg:w-1/4 p-6 space-y-6"
         initial={{ x: -120, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        {/* Stats Panel */}
+
         <motion.div
           className="p-5 bg-gradient-to-br from-gray-800/70 via-gray-900/70 to-purple-900/70 rounded-3xl shadow-xl backdrop-blur-md border border-purple-700"
           initial={{ y: -20, opacity: 0 }}
@@ -102,7 +111,6 @@ const Shoot = () => {
           </div>
         </motion.div>
 
-        {/* Control Buttons */}
         <motion.div
           className="p-5 bg-gradient-to-br from-gray-800/70 via-gray-900/70 to-purple-900/70 rounded-3xl shadow-xl backdrop-blur-md border border-purple-700 space-y-3"
           initial={{ y: 20, opacity: 0 }}
@@ -122,7 +130,6 @@ const Shoot = () => {
         </motion.div>
       </motion.div>
 
-      {/* Game Canvas */}
       <div className="flex-1 relative h-full w-full flex items-center justify-center p-4">
         <canvas
           ref={canvasRef}
@@ -152,8 +159,8 @@ const Shoot = () => {
                 </h2>
                 <p className="mb-4 text-lg text-purple-300">Final Score: {score}</p>
                 <motion.button
-                  onClick={restartGame}
-                  className="px-6 py-3 bg-red-500 text-white font-bold rounded-xl shadow-lg hover:shadow-2xl hover:bg-red-600 transition-colors"
+                  onClick={handleRestart}
+                  className="px-6 py-3 bg-red-500  text-white font-bold rounded-xl shadow-lg hover:shadow-2xl hover:bg-red-300 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

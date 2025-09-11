@@ -135,14 +135,14 @@ const MinigameScrean = () => {
             </h3>
             <div className="flex justify-center mb-4">
               <img
-                src="/images/tiktaktoe.jpg"
+                src="/images/shoot.jpg"
                 alt="Quizz Game"
                 className="rounded-xl w-44 h-44 object-cover shadow-md border-4 border-red-500"/>
             </div>
             <button
               onClick={() => alert("Game starting...")}
               className="bg-purple-300 hover:bg-blue-200 text-white hover:text-black font-bold py-2 px-6 rounded-full shadow-lg transition duration-200">
-              <Link to="/TikTac">Play Now 🎮</Link>
+              <Link to="/Shoot">Play Now 🎮</Link>
             </button>
           </div>
         </motion.div>
