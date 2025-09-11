@@ -75,7 +75,7 @@ const MinigameScrean = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center"
         >
           <div className="bg-slate-700 bg-opacity-90 rounded-3xl shadow-xl p-6 w-80 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
             <h3 className="text-xl font-bold text-pink-100 mb-4 font-arcade">
@@ -114,6 +114,22 @@ const MinigameScrean = () => {
             </button>
           </div>
            <div className="bg-slate-700 bg-opacity-90 rounded-3xl shadow-xl p-6 w-80 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-xl font-bold text-pink-100 mb-4 font-arcade">
+              TIKTAK TOE😈
+            </h3>
+            <div className="flex justify-center mb-4">
+              <img
+                src="/images/tiktaktoe.jpg"
+                alt="Quizz Game"
+                className="rounded-xl w-44 h-44 object-cover shadow-md border-4 border-red-500"/>
+            </div>
+            <button
+              onClick={() => alert("Game starting...")}
+              className="bg-purple-300 hover:bg-blue-200 text-white hover:text-black font-bold py-2 px-6 rounded-full shadow-lg transition duration-200">
+              <Link to="/TikTac">Play Now 🎮</Link>
+            </button>
+          </div>
+              <div className="bg-slate-700 bg-opacity-90 rounded-3xl shadow-xl p-6 w-80 text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
             <h3 className="text-xl font-bold text-pink-100 mb-4 font-arcade">
               TIKTAK TOE😈
             </h3>

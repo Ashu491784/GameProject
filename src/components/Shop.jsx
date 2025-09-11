@@ -166,7 +166,7 @@ const Shop = () => {
 
       <footer className="text-center py-8 text-gray-400 text-sm">
         <p>Questions? Contact us at support@gamehub.com</p>
-        <p className="mt-2">© 2023 GameHub. All rights reserved.</p>
+        <p className="mt-2">© 2025 GameHub. All rights reserved.</p>
       </footer>
     </div>
   );

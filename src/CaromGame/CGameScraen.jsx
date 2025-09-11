@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
   const [p1Score, setP1Score] = useState(0);
   const [p2Score, setP2Score] = useState(0);
-  const [coinsLeft, setCoinsLeft] = useState(30);
+  const [coinsLeft, setCoinsLeft] = useState(20);
   const [state, setState] = useState("Aiming");
   const [turn, setTurn] = useState("P1");
   const [power, setPower] = useState(0);
