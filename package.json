@@ -17,6 +17,7 @@
     "@splinetool/react-spline": "^4.0.0",
     "axios": "^1.11.0",
     "boxicons": "^2.1.4",
+    "emailjs-com": "^3.2.0",
     "firebase": "^11.9.1",
     "framer-motion": "^12.23.6",
     "howler": "^2.2.4",
