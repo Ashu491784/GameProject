@@ -24,6 +24,7 @@ import LiveChat from "./components/LiveChat";
 import Message from "./components/Message";
 import Footer from "./components/Footer"
 import Shoot from "./Shoot/shoot";
+import ForgetPassword from "./components/ForgetPassword";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -60,6 +61,7 @@ export const App = () => {
           <Route path="/GamesCard" element={<GamesCard/>} />
           <Route path="/Message" element={<Message/>} />
           <Route path="/Shoot" element={<Shoot/>} />
+          <Route path="/ForgetPassword" element={<ForgetPassword/>} />
       </Routes>
     </BrowserRouter>
   );

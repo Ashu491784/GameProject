@@ -79,6 +79,14 @@ const Message = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(circle_at_20%_10%,rgba(243,0,255,.25),transparent_40%),radial-gradient(circle_at_80%_0%,rgba(0,212,255,.25),transparent_35%)] px-4">
+     <div className="text-center mt-20 mb-8 px-4">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-100 via-pink-500 to-red-950 drop-shadow-lg">
+          Help & Support
+        </h2>
+        <p className="mt-2 text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
+         What questions do you have? You can leave feedback here. Now you can... If you need, you can chat with one of our live customer care agents.
+        </p>
+      </div>
       <motion.div
         className="w-full max-w-lg bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-8 md:p-10"
         initial={{ opacity: 0, y: 40, scale: 0.9 }}

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { database, ref, push, onValue } from "../../firebase";
 
-// Mock users (replace with real auth later)
+
 const mockUsers = [
   { id: "1", name: "Alice", avatar: "A", online: true },
   { id: "2", name: "Bob", avatar: "B", online: true },
@@ -13,7 +13,6 @@ const LiveChat = () => {
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef(null);
 
-  // Load messages in realtime
   useEffect(() => {
     const messagesRef = ref(database, "messages");
     const unsubscribe = onValue(messagesRef, (snapshot) => {
@@ -29,10 +28,10 @@ const LiveChat = () => {
       }
     });
 
-    return () => unsubscribe(); // cleanup listener
+    return () => unsubscribe(); 
   }, []);
 
-  // Scroll to bottom when messages update
+ 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -43,7 +42,7 @@ const LiveChat = () => {
 
     const messagesRef = ref(database, "messages");
     push(messagesRef, {
-      userId: "1", // replace with auth.currentUser.uid
+      userId: "1", 
       text: newMessage,
       timestamp: Date.now(),
     });
@@ -51,12 +50,10 @@ const LiveChat = () => {
     setNewMessage("");
   };
 
-  // Handle Enter key
   const handleKeyPress = (e) => {
     if (e.key === "Enter") handleSendMessage();
   };
 
-  // Get user by ID
   const getUserById = (id) => mockUsers.find((u) => u.id === id) || { name: "Unknown", avatar: "?" };
 
   return (
@@ -72,7 +69,6 @@ const LiveChat = () => {
     </button>
   </div>
 
-  {/* Online Users */}
   <div className="px-4 py-2 bg-gray-700 flex overflow-x-auto space-x-3">
     {mockUsers.filter((user) => user.online).map((user) => (
       <div key={user.id} className="flex flex-col items-center transition-transform transform hover:scale-110">
@@ -87,7 +83,6 @@ const LiveChat = () => {
     ))}
   </div>
 
-  {/* Messages */}
   <div className="h-80 overflow-y-auto p-4 bg-gray-900 space-y-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
     {messages.map((message) => {
       const user = getUserById(message.userId);
@@ -129,7 +124,6 @@ const LiveChat = () => {
     <div ref={messagesEndRef} />
   </div>
 
-  {/* Input */}
   <div className="px-4 py-3 bg-gray-800 border-t border-gray-700">
     <div className="flex items-center space-x-2">
       <input
@@ -148,8 +142,6 @@ const LiveChat = () => {
       </button>
     </div>
   </div>
-
-  {/* Tailwind Animations */}
   <style jsx>{`
     @keyframes slide-up {
       from { transform: translateY(80px); opacity: 0; }
