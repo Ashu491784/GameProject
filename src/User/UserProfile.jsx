@@ -69,7 +69,7 @@ const UserProfile = () => {
             <span className="font-medium">Dashboard</span>
           </a>
           
-          <a href="#" className="sidebar-item flex items-center space-x-3 p-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+          <a href="/ItemPage" className="sidebar-item flex items-center space-x-3 p-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50">
             <Gamepad2 className="w-5 h-5" />
             <span className="font-medium">Games</span>
           </a>

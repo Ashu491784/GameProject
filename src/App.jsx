@@ -28,6 +28,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import UserProfile from "./User/UserProfile";
 import AddUsers from "./User/AddUser";
 import ItemPage from "./User/ItemPage";
+import PerfumeLandingPage from "./User/Fulll";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -68,6 +69,7 @@ export const App = () => {
           <Route path="/UserProfile" element={<UserProfile/>} />
           <Route path="/AddUsers" element={<AddUsers/>} />
           <Route path="/ItemPage" element={<ItemPage/>} />
+          <Route path="/PerfumeLandingPage" element={<PerfumeLandingPage/>} />
       </Routes>
     </BrowserRouter>
   );
