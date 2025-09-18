@@ -25,6 +25,8 @@ import Message from "./components/Message";
 import Footer from "./components/Footer"
 import Shoot from "./Shoot/shoot";
 import ForgetPassword from "./components/ForgetPassword";
+import UserProfile from "./User/UserProfile";
+import AddUsers from "./User/AddUser";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -62,6 +64,8 @@ export const App = () => {
           <Route path="/Message" element={<Message/>} />
           <Route path="/Shoot" element={<Shoot/>} />
           <Route path="/ForgetPassword" element={<ForgetPassword/>} />
+          <Route path="/UserProfile" element={<UserProfile/>} />
+          <Route path="/AddUsers" element={<AddUsers/>} />
       </Routes>
     </BrowserRouter>
   );

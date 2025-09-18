@@ -3,16 +3,7 @@ import { motion } from "framer-motion";
 import { FaStar, FaSearch, FaShoppingCart, FaUser, FaGamepad } from "react-icons/fa";
 import { Link} from "react-router-dom";
 
-const GamesCard = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortBy, setSortBy] = useState("popular");
-
-  const gameCategories = [
-    "all", "shooting", "puzzle", "runner", "sports", "casual", "strategy"
-  ];
-
-  const cardImages = [
+export const cardImages = [
     {id: 1, src: "/images/pubgy.jpeg", text: "This is a best shooting game in the world", price: "$12", rating: 4, category: "shooting", downloads: "100M+"},
     {id: 2, src: "/images/royalmatch.jpeg", text: "Royal match is best game of childrens", price: "$10", rating: 5, category: "puzzle", downloads: "50M+"},
     {id: 3, src: "/images/Tounship.jpeg", text: "This is a Tounship game and best clash game", price: "$8", rating: 4, category: "strategy", downloads: "75M+"},
@@ -35,7 +26,14 @@ const GamesCard = () => {
     {id: 20, src: "/images/car.jpeg", text: "Racing madness on wheels", price: "$7", rating: 5, category: "sports", downloads: "120M+"},
   ];
 
+const GamesCard = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("popular");
 
+  const gameCategories = [
+    "all", "shooting", "puzzle", "runner", "sports", "casual", "strategy"
+  ];
   const filteredGames = cardImages
     .filter(game => {
       const matchesSearch = game.text.toLowerCase().includes(searchTerm.toLowerCase());
@@ -180,4 +178,4 @@ const GamesCard = () => {
   );
 };
 
-export default GamesCard;
+export default GamesCard
