@@ -7,7 +7,6 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
 
-  // Handle scroll effect for header
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -22,15 +21,14 @@ const Header = () => {
 
   const handleSignIn = () => {
     navigate("/login");
-    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+    setIsMobileMenuOpen(false); 
   };
 
   const handleNavigation = (path) => {
     navigate(path);
-    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+    setIsMobileMenuOpen(false); 
   };
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobileMenuOpen && !event.target.closest("#MobileMenus") && 
@@ -47,11 +45,10 @@ const Header = () => {
     <header
       className={`py-3 px-5 md:px-8 flex justify-between items-center fixed top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? "bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-purple-500/30"
-          : "bg-gradient-to-b from-gray-900 to-gray-800/90 backdrop-blur-sm"
+          ? "bg-transparent backdrop-blur-md shadow-lg border-b border-purple-500/30"
+          : "bg-transparent backdrop-blur-sm"
       }`}
     >
-      {/* Logo and Brand */}
       <div className="flex items-center gap-3 md:gap-6">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNavigation("/")}>
           <img
@@ -83,7 +80,6 @@ const Header = () => {
         ))}
       </nav>
 
-      {/* Mobile Menu Button */}
       <button 
         onClick={toggleMobileMenu}
         className="text-2xl p-2 md:hidden text-white bg-purple-700/30 rounded-lg hover:bg-purple-700/50 transition-colors"
@@ -93,7 +89,6 @@ const Header = () => {
         <i className={isMobileMenuOpen ? "bx bx-x" : "bx bx-menu"}></i>
       </button>
 
-      {/* Mobile Menu */}
       <div
         id="MobileMenus"
         className={`fixed top-full left-0 right-0 bg-gray-900/95 backdrop-blur-lg shadow-xl border-t border-purple-500/30 transition-transform duration-300 md:hidden ${

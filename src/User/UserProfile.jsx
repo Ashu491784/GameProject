@@ -1,19 +1,35 @@
 import { useState, useEffect } from 'react';
 import { Zap, LayoutDashboard, Gamepad2, Users, ShoppingBag, Image, FileText, MessageSquare, Settings, Shield, Moon, Sun, Bell, Search } from 'lucide-react';
-import {cardImages} from '../components/GamesCard';
+import { cardImages } from '../components/GamesCard';
 import { database, ref, onValue } from "../../firebase";
 
 const UserProfile = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [userCount, setUserCount] = useState(0);
 
+  // Load theme from localStorage or system preference
   useEffect(() => {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setDarkMode(savedTheme === 'dark');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setDarkMode(true);
     }
   }, []);
 
-useEffect(() => {
+  // Apply dark mode class and save to localStorage
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
+
+  // Fetch user count from Firebase
+  useEffect(() => {
     const usersRef = ref(database, "users");
     const unsubscribe = onValue(usersRef, (snapshot) => {
       if (snapshot.exists()) {
@@ -27,13 +43,6 @@ useEffect(() => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
   const gameCount = cardImages.length;
 
   const toggleDarkMode = () => {
@@ -42,6 +51,7 @@ useEffect(() => {
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-slate-900 transition-colors duration-300">
+      {/* Sidebar */}
       <div className="transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10 w-80">
         <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
           <div className="flex items-center space-x-3">
@@ -54,7 +64,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        
+
         <nav className="flex-1 p-6 space-y-2 overflow-y-auto sidebar-scrollbar">
           <h4 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider pl-3 mb-2">Main</h4>
           
@@ -77,7 +87,7 @@ useEffect(() => {
             <ShoppingBag className="w-5 h-5" />
             <span className="font-medium">Orders</span>
           </a>
-          
+
           <h4 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider pl-3 mt-6 mb-2">Content</h4>
           
           <a href="#" className="sidebar-item flex items-center space-x-3 p-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50">
@@ -107,7 +117,8 @@ useEffect(() => {
             <span className="font-medium">Permissions</span>
           </a>
         </nav>
-        
+
+        {/* User Profile & Dark Mode Toggle */}
         <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50">
           <div className="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
             <div className="relative">
@@ -135,7 +146,8 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      
+
+      {/* Main Content */}
       <main className="flex-1 p-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
@@ -154,8 +166,9 @@ useEffect(() => {
               </button>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* Total Games */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>
@@ -171,7 +184,8 @@ useEffect(() => {
                 from last month
               </p>
             </div>
-            
+
+            {/* Active Users */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>
@@ -187,7 +201,8 @@ useEffect(() => {
                 from last month
               </p>
             </div>
-            
+
+            {/* Total Revenue */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>
@@ -203,7 +218,8 @@ useEffect(() => {
                 from last month
               </p>
             </div>
-            
+
+            {/* New Comments */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>

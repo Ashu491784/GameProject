@@ -8,7 +8,7 @@ const Hero = () => {
 
   return (
     <main className="relative w-full h-screen overflow-hidden flex justify-center items-center">
-  <div className="relative w-full h-full" style={{backgroundImage: "url('/images/ui3.png')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
+  <div className="relative w-full h-full" style={{backgroundImage: "url('/images/new.png')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 -z-10"></div>
 
