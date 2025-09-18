@@ -7,7 +7,6 @@ const UserProfile = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [userCount, setUserCount] = useState(0);
 
-  // Load theme from localStorage or system preference
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -17,7 +16,6 @@ const UserProfile = () => {
     }
   }, []);
 
-  // Apply dark mode class and save to localStorage
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -28,7 +26,6 @@ const UserProfile = () => {
     }
   }, [darkMode]);
 
-  // Fetch user count from Firebase
   useEffect(() => {
     const usersRef = ref(database, "users");
     const unsubscribe = onValue(usersRef, (snapshot) => {
@@ -51,7 +48,6 @@ const UserProfile = () => {
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-slate-900 transition-colors duration-300">
-      {/* Sidebar */}
       <div className="transition duration-300 ease-in-out bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-700/50 flex flex-col relative z-10 w-80">
         <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
           <div className="flex items-center space-x-3">
@@ -118,7 +114,6 @@ const UserProfile = () => {
           </a>
         </nav>
 
-        {/* User Profile & Dark Mode Toggle */}
         <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50">
           <div className="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
             <div className="relative">
@@ -147,7 +142,6 @@ const UserProfile = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <main className="flex-1 p-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
@@ -185,7 +179,6 @@ const UserProfile = () => {
               </p>
             </div>
 
-            {/* Active Users */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>
@@ -202,7 +195,6 @@ const UserProfile = () => {
               </p>
             </div>
 
-            {/* Total Revenue */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>
@@ -219,7 +211,6 @@ const UserProfile = () => {
               </p>
             </div>
 
-            {/* New Comments */}
             <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div>

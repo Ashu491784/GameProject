@@ -27,6 +27,7 @@ import Shoot from "./Shoot/shoot";
 import ForgetPassword from "./components/ForgetPassword";
 import UserProfile from "./User/UserProfile";
 import AddUsers from "./User/AddUser";
+import ItemPage from "./User/ItemPage";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -66,6 +67,7 @@ export const App = () => {
           <Route path="/ForgetPassword" element={<ForgetPassword/>} />
           <Route path="/UserProfile" element={<UserProfile/>} />
           <Route path="/AddUsers" element={<AddUsers/>} />
+          <Route path="/ItemPage" element={<ItemPage/>} />
       </Routes>
     </BrowserRouter>
   );
