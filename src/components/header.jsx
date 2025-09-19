@@ -19,27 +19,10 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleSignIn = () => {
-    navigate("/login");
-    setIsMobileMenuOpen(false); 
-  };
-
   const handleNavigation = (path) => {
     navigate(path);
-    setIsMobileMenuOpen(false); 
+    setIsMobileMenuOpen(false);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest("#MobileMenus") && 
-          !event.target.closest("button[aria-label='Toggle menu']")) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-    
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMobileMenuOpen]);
 
   return (
     <header
@@ -49,24 +32,27 @@ const Header = () => {
           : "bg-transparent backdrop-blur-sm"
       }`}
     >
-      <div className="flex items-center gap-3 md:gap-6">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNavigation("/")}>
-          <img
-            className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-contain bg-purple-700/20 p-1"
-            src="/images/logoss.png"
-            alt="Game Logo"
-          />
-          <span className="hidden sm:block text-white font-bold text-lg bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            GamerZone
-          </span>
-        </div>
+
+      <div
+        className="flex items-center gap-3 cursor-pointer"
+        onClick={() => handleNavigation("/")}
+      >
+        <img
+          className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-contain bg-purple-700/20 p-1"
+          src="/images/logoss.png"
+          alt="Game Logo"
+        />
+        <span className="hidden sm:block text-white font-bold text-lg bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          GamerZone
+        </span>
       </div>
+
       <nav className="hidden md:flex gap-6 lg:gap-8 items-center">
         {[
           { path: "/characters", icon: "bx-user-circle", label: "Gamer" },
           { path: "/arena", icon: "bx-diamond", label: "Arena" },
           { path: "/minigames", icon: "bx-chevrons-up", label: "MiniGame" },
-          { path: "/shop", icon: "bx-store", label: "Shop" }
+          { path: "/shop", icon: "bx-store", label: "Shop" },
         ].map((item) => (
           <button
             key={item.path}
@@ -78,9 +64,22 @@ const Header = () => {
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover:w-full"></span>
           </button>
         ))}
+
+        <button
+          onClick={() => handleNavigation("/admin")}
+          className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 transition-all duration-300"
+        >
+          Admin
+        </button>
+        <button
+          onClick={() => handleNavigation("/login")}
+          className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-400 hover:to-purple-400 transition-all duration-300"
+        >
+          Login
+        </button>
       </nav>
 
-      <button 
+      <button
         onClick={toggleMobileMenu}
         className="text-2xl p-2 md:hidden text-white bg-purple-700/30 rounded-lg hover:bg-purple-700/50 transition-colors"
         aria-label="Toggle menu"
@@ -100,7 +99,7 @@ const Header = () => {
             { path: "/characters", icon: "bx-user-circle", label: "Gamer" },
             { path: "/arena", icon: "bx-diamond", label: "Arena" },
             { path: "/minigames", icon: "bx-chevrons-up", label: "MiniGame" },
-            { path: "/shop", icon: "bx-store", label: "Shop" }
+            { path: "/shop", icon: "bx-store", label: "Shop" },
           ].map((item) => (
             <button
               key={item.path}
@@ -111,16 +110,22 @@ const Header = () => {
               <span>{item.label}</span>
             </button>
           ))}
-        <div className="flex flex-col gap-3 p-4 border-t border-gray-700 pt-4">
-          <button 
-            onClick={handleSignIn}
-            className="bg-gradient-to-r from-purple-500 to-blue-500 py-3 rounded-lg font-medium text-white hover:from-purple-400 hover:to-blue-400 transition-all duration-300"
-          >
-            Sign In
-          </button>
-        </div>
-        </nav>
 
+          <div className="flex flex-col gap-3 p-4 border-t border-gray-700 pt-4">
+            <button
+              onClick={() => handleNavigation("/UserProfile")}
+              className="bg-gradient-to-r from-pink-500 to-purple-500 py-3 rounded-lg font-medium text-white hover:from-pink-400 hover:to-purple-400 transition-all duration-300"
+            >
+              Admin
+            </button>
+            <button
+              onClick={() => handleNavigation("/login")}
+              className="bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-medium text-white hover:from-blue-400 hover:to-purple-400 transition-all duration-300"
+            >
+              Login
+            </button>
+          </div>
+        </nav>
       </div>
     </header>
   );

@@ -25,9 +25,9 @@ import Message from "./components/Message";
 import Footer from "./components/Footer"
 import Shoot from "./Shoot/shoot";
 import ForgetPassword from "./components/ForgetPassword";
-import UserProfile from "./User/UserProfile";
-import AddUsers from "./User/AddUser";
-import ItemPage from "./User/ItemPage";
+import UserProfile from "./Admin/UserProfile";
+import AddUsers from "./Admin/AddUser";
+import ItemPage from "./Admin/ItemPage";
 import PerfumeLandingPage from "./User/Fulll";
 export const App = () => {
   return (
