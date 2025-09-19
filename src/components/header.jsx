@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "boxicons/css/boxicons.min.css";
 
 const Header = () => {
@@ -32,7 +32,6 @@ const Header = () => {
           : "bg-transparent backdrop-blur-sm"
       }`}
     >
-
       <div
         className="flex items-center gap-3 cursor-pointer"
         onClick={() => handleNavigation("/")}
@@ -42,8 +41,9 @@ const Header = () => {
           src="/images/logoss.png"
           alt="Game Logo"
         />
-        <span className="hidden sm:block text-white font-bold text-lg bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-          GamerZone
+        <span className="hidden sm:block font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <span className="text-2xl md:text-3xl">G</span>
+          <span className="text-lg md:text-xl font-semibold">amerZone</span>
         </span>
       </div>
 
@@ -66,7 +66,7 @@ const Header = () => {
         ))}
 
         <button
-          onClick={() => handleNavigation("/admin")}
+          onClick={() => handleNavigation("/AdminLogin")}
           className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 transition-all duration-300"
         >
           Admin
@@ -113,9 +113,8 @@ const Header = () => {
 
           <div className="flex flex-col gap-3 p-4 border-t border-gray-700 pt-4">
             <button
-              onClick={() => handleNavigation("/UserProfile")}
               className="bg-gradient-to-r from-pink-500 to-purple-500 py-3 rounded-lg font-medium text-white hover:from-pink-400 hover:to-purple-400 transition-all duration-300"
-            >
+            > <Link to="/UserProfile"></Link>
               Admin
             </button>
             <button

@@ -21,7 +21,6 @@ const Hero = () => {
     navigate("/Login");
   };
 
-  // Animation variants for left entrance
   const titleVariants = {
     hidden: { opacity: 0, x: -100 },
     visible: { 
@@ -112,10 +111,8 @@ const Hero = () => {
         )}
       </AnimatePresence>
 
-      {/* Background overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
 
-      {/* Spline on the right side */}
       <AnimatePresence mode="wait">
         <motion.div
           key={"SplineHero"}
@@ -129,7 +126,6 @@ const Hero = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Left-side animated elements */}
       <div className="absolute left-0 top-0 h-full w-1/2 z-5">
         <AnimatePresence>
           {showContent && (
@@ -163,73 +159,86 @@ const Hero = () => {
         </AnimatePresence>
         <div className="relative z-20 flex flex-col items-start gap-6 text-left px-10 ml-5 md:ml-20 justify-center h-full">
         <AnimatePresence>
-          {showContent && (
-            <>
-              <motion.h1
-                variants={titleVariants}
-                initial="hidden"
-                animate="visible"
-                className="md:text-5xl text-3xl font-extrabold text-white tracking-wide drop-shadow-lg"
-              >
-                Explore,{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
-                  Capture
-                </span>
-                , Conquer
-              </motion.h1>
+  {showContent && (
+    <>
 
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "70%" }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="h-[2px] bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 rounded-full shadow-md"
-              />
+      <img 
+        src="public/images/illu-text.png" 
+        alt="Illu-text" 
+        className="md:w-[38rem] w-[26rem] drop-shadow-xl"
+      />
 
-              <motion.button
-                variants={buttonVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover="hover"
-                whileTap="tap"
-                onClick={handleClick}
-                className="h-12 px-14 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl font-semibold text-white tracking-wider shadow-xl"
-              >
-                PLAY NOW
-              </motion.button>
 
-              <motion.div
-                variants={logoVariants}
-                initial="hidden"
-                animate="visible"
-                className="flex items-center gap-4 text-4xl font-extrabold text-gray-100 drop-shadow-lg"
-              >
-                <motion.img
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: 360 }}
-                  transition={{ 
-                    duration: 20, 
-                    repeat: Infinity, 
-                    ease: "linear" 
-                  }}
-                  className="md:h-16 h-12"
-                  src="/images/illu-logo.png"
-                  alt="Illu-logo"
-                />
-                ZERO
-              </motion.div>
+      <motion.h1
+        variants={titleVariants}
+        initial="hidden"
+        animate="visible"
+        className="md:text-4xl text-3xl font-extrabold text-white tracking-widest text-center drop-shadow-2xl"
+      >
+        Explore,&nbsp;
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 animate-pulse">
+          Capture
+        </span>
+        ,&nbsp;Conquer
+      </motion.h1>
 
-              <motion.p
-                variants={disclaimerVariants}
-                initial="hidden"
-                animate="visible"
-                className="max-w-[90%] md:max-w-[80%] text-sm md:text-base text-gray-300 leading-relaxed bg-black/30 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50"
-              >
-                ⚠️ Notice: Illuvium Game is currently in Beta. Participation involves
-                risk. Please read our full Disclaimer before proceeding.
-              </motion.p>
-            </>
-          )}
-        </AnimatePresence>
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: "80%" }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="h-[3px] bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 rounded-full shadow-lg"
+      />
+
+      <motion.div
+        variants={logoVariants}
+        initial="hidden"
+        animate="visible"
+        className="flex items-center gap-5 text-5xl font-extrabold text-gray-100 drop-shadow-xl"
+      >
+        <motion.img
+          initial={{ rotate: 0 }}
+          animate={{ rotate: 360 }}
+          transition={{ 
+            duration: 18, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+          className="md:h-20 h-14 drop-shadow-lg"
+          src="/images/illu-logo.png"
+          alt="Illu-logo"
+        />
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
+          ZERO
+        </span>
+      </motion.div>
+
+      <motion.p
+        variants={disclaimerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-[90%] md:max-w-[70%] text-sm md:text-lg text-gray-200 leading-relaxed 
+                  bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-gray-700/40 shadow-lg text-center"
+      >
+        🌌 Discover epic worlds, challenge your limits, and dive into nonstop gaming adventures.  
+        <span className="text-purple-400 font-semibold"> The ultimate battleground awaits you!</span>
+      </motion.p>
+      
+      <motion.button
+        variants={buttonVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        whileTap="tap"
+        onClick={handleClick}
+        className="h-12 px-12 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl 
+                   font-bold text-white tracking-wider shadow-xl hover:scale-105 hover:shadow-purple-500/40 transition-all duration-300"
+      >
+        PLAY NOW
+      </motion.button>
+    </>
+  )}
+</AnimatePresence>
+
       </div>
       </div>   
     </main>

@@ -18,7 +18,7 @@ export const cardImages = [
     {id: 12, src: "/images/bubble.jpeg", text: "You can shoot boobless.", price: "$4", rating: 2, category: "puzzle", downloads: "25M+"},
     {id: 13, src: "/images/makeup2.jpeg", text: "Makeup game for creative minds", price: "$12", rating: 3, category: "casual", downloads: "20M+"},
     {id: 14, src: "/images/tom.jpeg", text: "Girls makeup game for girls and chidrens", price: "$10", rating: 4, category: "casual", downloads: "35M+"},
-    {id: 15, src: "/images/vita.jpeg", text: "Hakuna Matata vibes with friends.", price: "$8", rating: 4, category: "casual", downloads: "40M+"},
+    {id: 15, src: "/images/chese.jpeg", text: "Chese game vibes with friends.", price: "$8", rating: 4, category: "sports", downloads: "40M+"},
     {id: 16, src: "/images/sniper.jpeg", text: "Sniper elite shooting experience", price: "$6", rating: 5, category: "shooting", downloads: "90M+"},
     {id: 17, src: "/images/swim.jpg", text: "Swimming challenge adventure", price: "$4", rating: 3, category: "sports", downloads: "15M+"},
     {id: 18, src: "/images/pool.jpg", text: "Pool master - play with friends", price: "$5.3", rating: 3, category: "sports", downloads: "28M+"},

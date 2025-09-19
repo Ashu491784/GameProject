@@ -29,6 +29,7 @@ import UserProfile from "./Admin/UserProfile";
 import AddUsers from "./Admin/AddUser";
 import ItemPage from "./Admin/ItemPage";
 import PerfumeLandingPage from "./User/Fulll";
+import AdminLogin from "./Admin/AdminLogin";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -70,6 +71,8 @@ export const App = () => {
           <Route path="/AddUsers" element={<AddUsers/>} />
           <Route path="/ItemPage" element={<ItemPage/>} />
           <Route path="/PerfumeLandingPage" element={<PerfumeLandingPage/>} />
+          <Route path="/AdminLogin" element={<AdminLogin/>} />
+
       </Routes>
     </BrowserRouter>
   );
