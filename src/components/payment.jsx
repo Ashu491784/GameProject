@@ -123,9 +123,9 @@ const Payment = () => {
                     -- Select a package --
                   </option>
                   <option value="basic">Basic — $7/mo</option>
-                  <option value="pro">Pro — $19/mo</option>
-                  <option value="business">Business — $39/mo</option>
-                  <option value="annual">Annual — $199/yr</option>
+                  <option value="pro">Prem — $13/mo</option>
+                  <option value="business">pro — $39/mo</option>
+                  <option value="annual">pro — $52/yr</option>
                 </select>
               </div>
 

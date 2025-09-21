@@ -30,6 +30,7 @@ import AddUsers from "./Admin/AddUser";
 import ItemPage from "./Admin/ItemPage";
 import PerfumeLandingPage from "./User/Fulll";
 import AdminLogin from "./Admin/AdminLogin";
+import PlayerProfile from "./User/PlayerProfile";
 export const App = () => {
   return (
     <BrowserRouter>
@@ -72,7 +73,7 @@ export const App = () => {
           <Route path="/ItemPage" element={<ItemPage/>} />
           <Route path="/PerfumeLandingPage" element={<PerfumeLandingPage/>} />
           <Route path="/AdminLogin" element={<AdminLogin/>} />
-
+          <Route path="/PlayerProfile" element={<PlayerProfile/>} />
       </Routes>
     </BrowserRouter>
   );
