@@ -32,7 +32,6 @@ const Login = () => {
   useEffect(() => {
     const savedEmail = localStorage.getItem("rememberedEmail");
     if (savedEmail) {
-      setEmail(savedEmail);
       setRememberMe(true);
     }
     if (emailRef.current) {
@@ -67,7 +66,7 @@ const Login = () => {
         localStorage.removeItem("rememberedEmail");
       }
 
-      navigate("/PlayerProfile");
+      navigate("/CGameScrean");
     } catch (err) {
       console.error(err);
       let errorMessage = "Invalid email or password!";

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import * as THREE from 'three';
+import * as THREE from "three";
+import { Link, useNavigate } from "react-router-dom";
 
 const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
   const [p1Score, setP1Score] = useState(0);
@@ -17,18 +18,16 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
 
   useEffect(() => {
     if (canvasRef.current && !gameInstance.current) {
-      // Clear any existing content in the container
       while (canvasRef.current.firstChild) {
         canvasRef.current.removeChild(canvasRef.current.firstChild);
       }
-      
-      // Create a new canvas element
-      const canvas = document.createElement('canvas');
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      canvas.style.display = 'block';
+
+      const canvas = document.createElement("canvas");
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      canvas.style.display = "block";
       canvasRef.current.appendChild(canvas);
-      
+
       gameInstance.current = initCaromGame(canvas, {
         onUpdateScore: (p1, p2) => {
           setP1Score(p1);
@@ -45,7 +44,7 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       if (gameInstance.current) {
         const { cleanup } = gameInstance.current;
         if (cleanup) cleanup();
-        
+
         if (canvasRef.current) {
           while (canvasRef.current.firstChild) {
             canvasRef.current.removeChild(canvasRef.current.firstChild);
@@ -73,24 +72,24 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
     const tableZ = 0;
 
     // Renderer/Scene/Camera
-    const renderer = new THREE.WebGLRenderer({ 
-      antialias: true, 
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
       canvas,
-      alpha: true
+      alpha: true,
     });
-    
+
     const container = canvas.parentElement;
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#0b0f14');
+    scene.background = new THREE.Color("#0b0f14");
 
     const aspect = container.clientWidth / container.clientHeight;
     const viewSize = 68;
     const camera = new THREE.OrthographicCamera(
-      -viewSize * aspect / 2,
-      viewSize * aspect / 2,
+      (-viewSize * aspect) / 2,
+      (viewSize * aspect) / 2,
       viewSize / 2,
       -viewSize / 2,
       0.1,
@@ -106,8 +105,8 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
     dir.position.set(50, 60, 80);
     scene.add(dir);
 
-    // Board 
-    const board = new THREE.Group(); 
+    // Board
+    const board = new THREE.Group();
     scene.add(board);
 
     const wood = new THREE.Mesh(
@@ -129,18 +128,22 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
     const borderW = wallThickness;
     const edgeGeomH = new THREE.BoxGeometry(boardSize + borderW, borderW, 2);
     const edgeGeomV = new THREE.BoxGeometry(borderW, boardSize + borderW, 2);
-    const topEdge = new THREE.Mesh(edgeGeomH, borderMat);   topEdge.position.set(0,  half, tableZ);
-    const botEdge = new THREE.Mesh(edgeGeomH, borderMat);   botEdge.position.set(0, -half, tableZ);
-    const lefEdge = new THREE.Mesh(edgeGeomV, borderMat);   lefEdge.position.set(-half, 0, tableZ);
-    const rigEdge = new THREE.Mesh(edgeGeomV, borderMat);   rigEdge.position.set( half, 0, tableZ);
+    const topEdge = new THREE.Mesh(edgeGeomH, borderMat);
+    topEdge.position.set(0, half, tableZ);
+    const botEdge = new THREE.Mesh(edgeGeomH, borderMat);
+    botEdge.position.set(0, -half, tableZ);
+    const lefEdge = new THREE.Mesh(edgeGeomV, borderMat);
+    lefEdge.position.set(-half, 0, tableZ);
+    const rigEdge = new THREE.Mesh(edgeGeomV, borderMat);
+    rigEdge.position.set(half, 0, tableZ);
     board.add(topEdge, botEdge, lefEdge, rigEdge);
 
     // Pockets 4
     const pockets = [
-      new THREE.Vector2(-half + 1.2,  half - 1.2),
-      new THREE.Vector2( half - 1.2,  half - 1.2),
+      new THREE.Vector2(-half + 1.2, half - 1.2),
+      new THREE.Vector2(half - 1.2, half - 1.2),
       new THREE.Vector2(-half + 1.2, -half + 1.2),
-      new THREE.Vector2( half - 1.2, -half + 1.2),
+      new THREE.Vector2(half - 1.2, -half + 1.2),
     ];
     const pocketMeshes = [];
     for (const p of pockets) {
@@ -148,25 +151,26 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
         new THREE.CircleGeometry(pocketR, 48),
         new THREE.MeshBasicMaterial({ color: 0x111111 })
       );
-      m.position.set(p.x, p.y, tableZ + .1);
+      m.position.set(p.x, p.y, tableZ + 0.1);
       board.add(m);
       pocketMeshes.push(m);
     }
 
     // Helpers
-    function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+    function clamp(v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    }
     function resolveCircleCollision(a, b) {
       const dx = b.pos.x - a.pos.x;
       const dy = b.pos.y - a.pos.y;
-      const dist2 = dx*dx + dy*dy;
+      const dist2 = dx * dx + dy * dy;
       const r = a.r + b.r;
-      if (dist2 >= r*r || dist2 === 0) return;
+      if (dist2 >= r * r || dist2 === 0) return;
 
       const dist = Math.sqrt(dist2);
       const nx = dx / dist;
       const ny = dy / dist;
 
-  
       const overlap = r - dist;
       const totalMass = a.m + b.m;
       a.pos.x -= nx * (overlap * (b.m / totalMass));
@@ -174,18 +178,19 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       b.pos.x += nx * (overlap * (a.m / totalMass));
       b.pos.y += ny * (overlap * (a.m / totalMass));
 
-   
       const rvx = b.vel.x - a.vel.x;
       const rvy = b.vel.y - a.vel.y;
       const velAlongNorm = rvx * nx + rvy * ny;
       if (velAlongNorm > 0) return;
 
- 
       const e = 0.94;
-      const j = -(1 + e) * velAlongNorm / (1/a.m + 1/b.m);
-      const impX = j * nx, impY = j * ny;
-      a.vel.x -= impX / a.m; a.vel.y -= impY / a.m;
-      b.vel.x += impX / b.m; b.vel.y += impY / b.m;
+      const j = (-(1 + e) * velAlongNorm) / (1 / a.m + 1 / b.m);
+      const impX = j * nx,
+        impY = j * ny;
+      a.vel.x -= impX / a.m;
+      a.vel.y -= impY / a.m;
+      b.vel.x += impX / b.m;
+      b.vel.y += impY / b.m;
     }
 
     // Bodies
@@ -200,8 +205,8 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       scene.add(mesh);
       const body = {
         mesh,
-        pos: new THREE.Vector2(0,0),
-        vel: new THREE.Vector2(0,0),
+        pos: new THREE.Vector2(0, 0),
+        vel: new THREE.Vector2(0, 0),
         r: radius,
         m: mass,
         alive: true,
@@ -212,22 +217,28 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       return body;
     }
 
-    // Gameplay 
-    let striker, scoreP1 = 0, scoreP2 = 0;
+    // Gameplay
+    let striker,
+      scoreP1 = 0,
+      scoreP2 = 0;
     let currentPlayer = 1;
     let selectedSpotIdx = 0;
     const spotX = [-20, -7, 7, 20];
-    const spotMarkers = []; 
-    let pocketedThisShot = false; 
+    const spotMarkers = [];
+    let pocketedThisShot = false;
 
-    function createSpotMarkers(){
+    function createSpotMarkers() {
       for (const m of spotMarkers) scene.remove(m);
       spotMarkers.length = 0;
-      const y = (currentPlayer === 1) ? (-half + 8) : (half - 8);
-      for (let i=0;i<4;i++){
+      const y = currentPlayer === 1 ? -half + 8 : half - 8;
+      for (let i = 0; i < 4; i++) {
         const circ = new THREE.Mesh(
           new THREE.RingGeometry(1.9, 2.3, 32),
-          new THREE.MeshBasicMaterial({ color: 0x1f2937, transparent:true, opacity:0.85 })
+          new THREE.MeshBasicMaterial({
+            color: 0x1f2937,
+            transparent: true,
+            opacity: 0.85,
+          })
         );
         circ.position.set(spotX[i], y, tableZ + 1.8);
         scene.add(circ);
@@ -236,46 +247,42 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       highlightSpot();
     }
 
-    function highlightSpot(){
-   
+    function highlightSpot() {
       spotMarkers.forEach((m, i) => {
         const mat = m.material;
-        mat.opacity = (i === selectedSpotIdx) ? 1.0 : 0.45;
+        mat.opacity = i === selectedSpotIdx ? 1.0 : 0.45;
         mat.needsUpdate = true;
       });
     }
 
-    function placeStrikerAtSpot(){
-      const y = (currentPlayer === 1) ? (-half + 8) : (half - 8);
+    function placeStrikerAtSpot() {
+      const y = currentPlayer === 1 ? -half + 8 : half - 8;
       const x = spotX[selectedSpotIdx];
-      striker.vel.set(0,0);
+      striker.vel.set(0, 0);
       striker.pos.set(x, y);
       striker.mesh.position.set(x, y, striker.mesh.position.z);
     }
 
-  
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-    function getNdc(e){
+    function getNdc(e) {
       return new THREE.Vector2(
         (e.clientX / renderer.domElement.clientWidth) * 2 - 1,
         -(e.clientY / renderer.domElement.clientHeight) * 2 + 1
       );
     }
 
-    
     function rack() {
-      // clear existing (except spot markers which we recreate)
       for (const b of bodies) scene.remove(b.mesh);
       bodies.length = 0;
 
-      scoreP1 = 0; scoreP2 = 0;
+      scoreP1 = 0;
+      scoreP2 = 0;
       currentPlayer = 1;
       selectedSpotIdx = 0;
 
-      
       callbacks.onUpdateScore(scoreP1, scoreP2);
-      callbacks.onUpdateTurn('P1');
+      callbacks.onUpdateTurn("P1");
 
       const queen = makeDisc(queenR, 0xdb1f48, queenMass);
       queen.isQueen = true;
@@ -283,56 +290,58 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       const ringColors = [0x222222, 0xebe7e1];
       const ringR = coinR * 2.05;
       const ringPositions = [];
-      for (let i=0;i<6;i++){
-        const a = (i/6)*Math.PI*2;
-        ringPositions.push(new THREE.Vector2(Math.cos(a)*ringR, Math.sin(a)*ringR));
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * Math.PI * 2;
+        ringPositions.push(
+          new THREE.Vector2(Math.cos(a) * ringR, Math.sin(a) * ringR)
+        );
       }
-      for (let pass=0; pass<2; pass++){
-        for (let i=0;i<6;i++){
-          const c = makeDisc(coinR, ringColors[(i+pass)%2], coinMass);
-          c.pos.copy(ringPositions[i].clone().multiplyScalar(1 + pass*1.05));
+      for (let pass = 0; pass < 2; pass++) {
+        for (let i = 0; i < 6; i++) {
+          const c = makeDisc(coinR, ringColors[(i + pass) % 2], coinMass);
+          c.pos.copy(ringPositions[i].clone().multiplyScalar(1 + pass * 1.05));
         }
       }
 
-   
-      for (const b of bodies) b.mesh.position.set(b.pos.x, b.pos.y, b.mesh.position.z);
+      for (const b of bodies)
+        b.mesh.position.set(b.pos.x, b.pos.y, b.mesh.position.z);
 
       // striker
       striker = makeDisc(strikerR, 0x2b6cff, strikerMass);
       striker.isStriker = true;
 
       pocketedThisShot = false;
-      state = 'Aiming';
+      state = "Aiming";
       callbacks.onUpdateState(state);
       createSpotMarkers();
       placeStrikerAtSpot();
       updateHud();
     }
 
-    function coinsLeft(){
-      return bodies.filter(b => !b.isStriker && b.alive).length;
+    function coinsLeft() {
+      return bodies.filter((b) => !b.isStriker && b.alive).length;
     }
 
     // Pockets
-    function checkPockets(body){
-      for (const p of pockets){
+    function checkPockets(body) {
+      for (const p of pockets) {
         const dx = body.pos.x - p.x;
         const dy = body.pos.y - p.y;
-        if (dx*dx + dy*dy <= (pocketR-0.1)*(pocketR-0.1)) {
+        if (dx * dx + dy * dy <= (pocketR - 0.1) * (pocketR - 0.1)) {
           // pocketed
           body.alive = false;
           body.mesh.visible = false;
           if (body.isStriker) {
-            
             if (currentPlayer === 1) scoreP1 = Math.max(0, scoreP1 - 1);
             else scoreP2 = Math.max(0, scoreP2 - 1);
-            pocketedThisShot = false; 
-          
+            pocketedThisShot = false;
           } else if (body.isQueen) {
-            if (currentPlayer === 1) scoreP1 += 3; else scoreP2 += 3;
+            if (currentPlayer === 1) scoreP1 += 3;
+            else scoreP2 += 3;
             pocketedThisShot = true;
           } else {
-            if (currentPlayer === 1) scoreP1 += 1; else scoreP2 += 1;
+            if (currentPlayer === 1) scoreP1 += 1;
+            else scoreP2 += 1;
             pocketedThisShot = true;
           }
           callbacks.onUpdateScore(scoreP1, scoreP2);
@@ -344,88 +353,102 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
     }
 
     // Physics step
-    function stepPhysics(){
+    function stepPhysics() {
       // integrate + friction
-      for (const b of bodies){
+      for (const b of bodies) {
         if (!b.alive) continue;
         b.pos.x += b.vel.x * dt * 60;
         b.pos.y += b.vel.y * dt * 60;
         b.vel.multiplyScalar(friction);
-        if (Math.hypot(b.vel.x,b.vel.y) < minSpeed) {
-          b.vel.set(0,0);
+        if (Math.hypot(b.vel.x, b.vel.y) < minSpeed) {
+          b.vel.set(0, 0);
         }
       }
 
-   
-      const limit = half - wallThickness*0.75;
-      for (const b of bodies){
+      const limit = half - wallThickness * 0.75;
+      for (const b of bodies) {
         if (!b.alive) continue;
-        if (b.pos.x - b.r < -limit){ b.pos.x = -limit + b.r; b.vel.x *= -0.9; }
-        if (b.pos.x + b.r >  limit){ b.pos.x =  limit - b.r; b.vel.x *= -0.9; }
-        if (b.pos.y - b.r < -limit){ b.pos.y = -limit + b.r; b.vel.y *= -0.9; }
-        if (b.pos.y + b.r >  limit){ b.pos.y =  limit - b.r; b.vel.y *= -0.9; }
-      }
-
- 
-      for (let i=0;i<bodies.length;i++){
-        for (let j=i+1;j<bodies.length;j++){
-          const a = bodies[i], b = bodies[j];
-          if (!a.alive || !b.alive) continue;
-          resolveCircleCollision(a,b);
+        if (b.pos.x - b.r < -limit) {
+          b.pos.x = -limit + b.r;
+          b.vel.x *= -0.9;
+        }
+        if (b.pos.x + b.r > limit) {
+          b.pos.x = limit - b.r;
+          b.vel.x *= -0.9;
+        }
+        if (b.pos.y - b.r < -limit) {
+          b.pos.y = -limit + b.r;
+          b.vel.y *= -0.9;
+        }
+        if (b.pos.y + b.r > limit) {
+          b.pos.y = limit - b.r;
+          b.vel.y *= -0.9;
         }
       }
 
-    
-      for (const b of bodies){
+      for (let i = 0; i < bodies.length; i++) {
+        for (let j = i + 1; j < bodies.length; j++) {
+          const a = bodies[i],
+            b = bodies[j];
+          if (!a.alive || !b.alive) continue;
+          resolveCircleCollision(a, b);
+        }
+      }
+
+      for (const b of bodies) {
         if (!b.alive) continue;
         checkPockets(b);
       }
 
-    
-      for (const b of bodies){
+      for (const b of bodies) {
         b.mesh.position.x = b.pos.x;
         b.mesh.position.y = b.pos.y;
       }
     }
 
-   //shot
+    //shot
     let isDragging = false;
     const aimStart = new THREE.Vector2();
     const aimEnd = new THREE.Vector2();
     const aimLine = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]),
+      new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+      ]),
       new THREE.LineBasicMaterial({ linewidth: 2, color: 0xffffff })
     );
-    scene.add(aimLine); aimLine.visible = false;
+    scene.add(aimLine);
+    aimLine.visible = false;
 
-    let state = 'Aiming';
+    let state = "Aiming";
 
-    function screenToBoard(x, y){
+    function screenToBoard(x, y) {
       const ndc = new THREE.Vector2(
         (x / renderer.domElement.clientWidth) * 2 - 1,
         -(y / renderer.domElement.clientHeight) * 2 + 1
       );
       raycaster.setFromCamera(ndc, camera);
       const t = -raycaster.ray.origin.z / raycaster.ray.direction.z;
-      const pos = raycaster.ray.origin.clone().add(raycaster.ray.direction.clone().multiplyScalar(t));
+      const pos = raycaster.ray.origin
+        .clone()
+        .add(raycaster.ray.direction.clone().multiplyScalar(t));
       return new THREE.Vector2(pos.x, pos.y);
     }
 
     function handleMouseDown(e) {
-      if (state !== 'Aiming') return;
+      if (state !== "Aiming") return;
 
-  
       const ndc = getNdc(e);
       raycaster.setFromCamera(ndc, camera);
       const intersects = raycaster.intersectObjects(spotMarkers, false);
-      if (intersects.length){
+      if (intersects.length) {
         const idx = spotMarkers.indexOf(intersects[0].object);
-        if (idx >= 0){
+        if (idx >= 0) {
           selectedSpotIdx = idx;
           highlightSpot();
           placeStrikerAtSpot();
           updateHud();
-          return; 
+          return;
         }
       }
 
@@ -443,54 +466,69 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       updatePowerUi();
     }
 
-    function updateAimLine(){
+    function updateAimLine() {
       const p1 = new THREE.Vector3(aimStart.x, aimStart.y, tableZ + 2);
-      const p2 = new THREE.Vector3(aimEnd.x,   aimEnd.y,   tableZ + 2);
+      const p2 = new THREE.Vector3(aimEnd.x, aimEnd.y, tableZ + 2);
       aimLine.geometry.setFromPoints([p1, p2]);
     }
 
-    function powerVec(){
+    function powerVec() {
       const v = new THREE.Vector2(aimStart.x - aimEnd.x, aimStart.y - aimEnd.y);
       const max = 30;
       if (v.length() > max) v.setLength(max);
       return v;
     }
 
-    function updatePowerUi(){
+    function updatePowerUi() {
       const p = clamp(powerVec().length() / 30, 0, 1);
       callbacks.onUpdatePower(p);
     }
 
     function handleMouseUp() {
       if (!isDragging) return;
-      isDragging = false; aimLine.visible = false; updatePowerUi();
+      isDragging = false;
+      aimLine.visible = false;
+      updatePowerUi();
       const v = powerVec();
       if (v.length() < 0.5) return;
       striker.vel.add(v.multiplyScalar(0.18));
-      pocketedThisShot = false; 
-      state = 'Moving';
+      pocketedThisShot = false;
+      state = "Moving";
       callbacks.onUpdateState(state);
       updateHud();
     }
 
     function handleKeyDown(e) {
-      if (e.key.toLowerCase() === 'r') {
+      if (e.key.toLowerCase() === "r") {
         rack();
-      } else if (e.code === 'Space') {
-        
-        for (const b of bodies){ b.vel.set(0,0); }
-        state = 'Aiming';
+      } else if (e.code === "Space") {
+        for (const b of bodies) {
+          b.vel.set(0, 0);
+        }
+        state = "Aiming";
         callbacks.onUpdateState(state);
         placeStrikerAtSpot();
         updateHud();
-      } else if (e.key.toLowerCase() === 'p') {
-        state = (state === 'Paused') ? 'Aiming' : 'Paused';
+      } else if (e.key.toLowerCase() === "p") {
+        state = state === "Paused" ? "Aiming" : "Paused";
         callbacks.onUpdateState(state);
         updateHud();
-      } else if (state === 'Aiming') {
-        if (e.key === 'a' || e.key === 'A'){ selectedSpotIdx = (selectedSpotIdx + 3) % 4; highlightSpot(); placeStrikerAtSpot(); }
-        if (e.key === 'd' || e.key === 'D'){ selectedSpotIdx = (selectedSpotIdx + 1) % 4; highlightSpot(); placeStrikerAtSpot(); }
-        if (e.key >= '1' && e.key <= '4'){ selectedSpotIdx = (e.key.charCodeAt(0) - '1'.charCodeAt(0)) % 4; highlightSpot(); placeStrikerAtSpot(); }
+      } else if (state === "Aiming") {
+        if (e.key === "a" || e.key === "A") {
+          selectedSpotIdx = (selectedSpotIdx + 3) % 4;
+          highlightSpot();
+          placeStrikerAtSpot();
+        }
+        if (e.key === "d" || e.key === "D") {
+          selectedSpotIdx = (selectedSpotIdx + 1) % 4;
+          highlightSpot();
+          placeStrikerAtSpot();
+        }
+        if (e.key >= "1" && e.key <= "4") {
+          selectedSpotIdx = (e.key.charCodeAt(0) - "1".charCodeAt(0)) % 4;
+          highlightSpot();
+          placeStrikerAtSpot();
+        }
       }
     }
 
@@ -498,35 +536,41 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       callbacks.onUpdateScore(scoreP1, scoreP2);
       callbacks.onUpdateCoins(coinsLeft());
       callbacks.onUpdateState(state);
-      callbacks.onUpdateTurn(currentPlayer === 1 ? 'P1' : 'P2');
+      callbacks.onUpdateTurn(currentPlayer === 1 ? "P1" : "P2");
     }
 
-    function afterShotSettle(){
-    
+    function afterShotSettle() {
       if (!pocketedThisShot) {
-        currentPlayer = (currentPlayer === 1) ? 2 : 1;
-        callbacks.onUpdateTurn(currentPlayer === 1 ? 'P1' : 'P2');
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        callbacks.onUpdateTurn(currentPlayer === 1 ? "P1" : "P2");
       }
-     
+
       createSpotMarkers();
       selectedSpotIdx = clamp(selectedSpotIdx, 0, 3);
       placeStrikerAtSpot();
-      state = 'Aiming';
+      state = "Aiming";
       callbacks.onUpdateState(state);
       updateHud();
     }
 
-    // Main 
+    // Main
     rack();
-    let acc = 0, last = performance.now();
+    let acc = 0,
+      last = performance.now();
     let animationId = null;
-    
-    function tick(now){
-      const elapsed = (now - last) / 1000; last = now; acc += elapsed;
-      while (acc >= dt){
-        if (state === 'Moving') {
+
+    function tick(now) {
+      const elapsed = (now - last) / 1000;
+      last = now;
+      acc += elapsed;
+      while (acc >= dt) {
+        if (state === "Moving") {
           stepPhysics();
-          const moving = bodies.some(b => b.alive && (Math.abs(b.vel.x)>minSpeed || Math.abs(b.vel.y)>minSpeed));
+          const moving = bodies.some(
+            (b) =>
+              b.alive &&
+              (Math.abs(b.vel.x) > minSpeed || Math.abs(b.vel.y) > minSpeed)
+          );
           if (!moving) {
             afterShotSettle();
           }
@@ -538,46 +582,48 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
     }
     animationId = requestAnimationFrame(tick);
 
-    function onResize(){
+    function onResize() {
       const container = canvas.parentElement;
       renderer.setSize(container.clientWidth, container.clientHeight);
       const aspect = container.clientWidth / container.clientHeight;
       const viewSize = 68;
-      camera.left   = -viewSize * aspect / 2;
-      camera.right  =  viewSize * aspect / 2;
-      camera.top    =  viewSize / 2;
+      camera.left = (-viewSize * aspect) / 2;
+      camera.right = (viewSize * aspect) / 2;
+      camera.top = viewSize / 2;
       camera.bottom = -viewSize / 2;
       camera.updateProjectionMatrix();
     }
 
+    renderer.domElement.addEventListener("mousedown", handleMouseDown);
+    renderer.domElement.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", onResize);
 
-    renderer.domElement.addEventListener('mousedown', handleMouseDown);
-    renderer.domElement.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('resize', onResize);
-    
     onResize();
 
     return {
       renderer,
       scene,
       cleanup: () => {
-        window.removeEventListener('resize', onResize);
-        window.removeEventListener('keydown', handleKeyDown);
-        window.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener("resize", onResize);
+        window.removeEventListener("keydown", handleKeyDown);
+        window.removeEventListener("mouseup", handleMouseUp);
         if (renderer.domElement) {
-          renderer.domElement.removeEventListener('mousedown', handleMouseDown);
-          renderer.domElement.removeEventListener('mousemove', handleMouseMove);
+          renderer.domElement.removeEventListener("mousedown", handleMouseDown);
+          renderer.domElement.removeEventListener("mousemove", handleMouseMove);
         }
         cancelAnimationFrame(animationId);
-      }
+      },
     };
   };
 
   const sendChatMessage = () => {
     if (messageInput.trim()) {
-      setChatMessages([...chatMessages, { sender: playerName, text: messageInput }]);
+      setChatMessages([
+        ...chatMessages,
+        { sender: playerName, text: messageInput },
+      ]);
       setMessageInput("");
     }
   };
@@ -587,7 +633,9 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       <div className="absolute top-0 left-0 right-0 z-20 bg-[#111827cc] p-3 flex justify-between items-center">
         <div className="text-white font-sans">
           <div className="text-lg font-bold">Carrom Game</div>
-          <div className="text-sm">Game Code: <span className="font-mono">{gameCode}</span></div>
+          <div className="text-sm">
+            Game Code: <span className="font-mono">{gameCode}</span>
+          </div>
         </div>
         <div className="flex space-x-4">
           <div className="text-white bg-blue-600 px-3 py-1 rounded-md">
@@ -596,7 +644,7 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
           <div className="text-white bg-green-600 px-3 py-1 rounded-md">
             Opponent: <b>{opponentName}</b>
           </div>
-          <button 
+          <button
             onClick={onLeaveGame}
             className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition"
           >
@@ -606,7 +654,9 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
       </div>
 
       <div className="absolute top-16 left-3 z-10 p-2 bg-white/90 rounded-xl shadow-lg">
-        <div className="text-xs font-bold text-center mb-1 text-gray-700">POWER</div>
+        <div className="text-xs font-bold text-center mb-1 text-gray-700">
+          POWER
+        </div>
         <div className="h-1.5 w-40 bg-gray-300 rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-600 transition-all duration-75"
@@ -638,7 +688,7 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
         <div className="flex-1 p-3 overflow-y-auto max-h-40">
           {chatMessages.map((msg, index) => (
             <div key={index} className="mb-2">
-              <span className="font-bold text-blue-300">{msg.sender}:</span> 
+              <span className="font-bold text-blue-300">{msg.sender}:</span>
               <span className="text-white ml-1">{msg.text}</span>
             </div>
           ))}
@@ -648,11 +698,11 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
             type="text"
             value={messageInput}
             onChange={(e) => setMessageInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+            onKeyPress={(e) => e.key === "Enter" && sendChatMessage()}
             placeholder="Type a message..."
             className="flex-1 bg-gray-800 text-white rounded-l-md px-3 py-2 focus:outline-none"
           />
-          <button 
+          <button
             onClick={sendChatMessage}
             className="bg-blue-600 text-white px-3 py-2 rounded-r-md hover:bg-blue-700 transition"
           >
@@ -667,8 +717,8 @@ const CGameScreen = ({ gameCode, playerName, onLeaveGame }) => {
         <p>💡 R: Reset game | Space: Reset shot | P: Pause</p>
       </div>
 
-      <div 
-        ref={canvasRef} 
+      <div
+        ref={canvasRef}
         className="absolute top-16 left-0 w-full h-[calc(100%-4rem)]"
       />
     </div>
@@ -681,18 +731,28 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-[radial-gradient(circle_at_20%_10%,rgba(243,0,255,.25),transparent_40%),radial-gradient(circle_at_80%_0%,rgba(0,212,255,.25),transparent_35%)] text-white">
-        <div className="text-center mt-10 mb-8 px-4">
+      <div className="text-center mt-10 mb-8 px-4">
         <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 drop-shadow-lg">
-         Online Carom Game 
+          Online Carom Game
         </h2>
         <p className="mt-2 text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
-         \You can play with friends and invite more registerd players.Enjoy your round and play hardly...!!!
+          \You can play with friends and invite more registerd players.Enjoy
+          your round and play hardly...!!!
         </p>
+        <button
+          className="absolute top-5 right-5 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg font-medium transition"
+        > <Link to="/PlayerProfile"> Profile</Link>
+         
+        </button>
       </div>
       <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 max-w-md w-full shadow-2xl overflow-hidden">
-        <h1 className="text-4xl font-bold text-white text-center mb-2">Carrom Game</h1>
-        <p className="text-white/80 text-center mb-8">Play carrom online with friends</p>
-        
+        <h1 className="text-4xl font-bold text-white text-center mb-2">
+          Carrom Game
+        </h1>
+        <p className="text-white/80 text-center mb-8">
+          Play carrom online with friends
+        </p>
+
         <div className="mb-6">
           <label className="block text-white mb-2">Your Name</label>
           <input
@@ -703,7 +763,7 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
             placeholder="Enter your name"
           />
         </div>
-        
+
         <div className="mb-8">
           <label className="block text-white mb-2">Game Code</label>
           <input
@@ -713,9 +773,11 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
             className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter game code"
           />
-          <p className="text-white/60 text-sm mt-2">Ask your friend for the game code to join</p>
+          <p className="text-white/60 text-sm mt-2">
+            Ask your friend for the game code to join
+          </p>
         </div>
-        
+
         <div className="flex flex-col space-y-4">
           <button
             onClick={() => onCreateGame(playerName)}
@@ -724,7 +786,7 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
           >
             Create New Game
           </button>
-          
+
           <button
             onClick={() => onJoinGame(playerName, gameCode)}
             disabled={!playerName || !gameCode}
@@ -733,30 +795,49 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
             Join Game
           </button>
         </div>
-        
-       <div className="bg-black/20 rounded-xl p-5 mt-3">
+
+        <div className="bg-black/20 rounded-xl p-5 mt-3">
           <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2 text-cyan-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             How to Play
           </h3>
           <ul className="space-y-2">
             <li className="flex items-start">
               <span className="text-cyan-400 mr-2">•</span>
-              <span className="text-white/80">Create a game and share the code with friends</span>
+              <span className="text-white/80">
+                Create a game and share the code with friends
+              </span>
             </li>
             <li className="flex items-start">
               <span className="text-cyan-400 mr-2">•</span>
-              <span className="text-white/80">Join an existing game with a code</span>
+              <span className="text-white/80">
+                Join an existing game with a code
+              </span>
             </li>
             <li className="flex items-start">
               <span className="text-cyan-400 mr-2">•</span>
-              <span className="text-white/80">Take turns to pocket coins and the queen</span>
+              <span className="text-white/80">
+                Take turns to pocket coins and the queen
+              </span>
             </li>
             <li className="flex items-start">
               <span className="text-cyan-400 mr-2">•</span>
-              <span className="text-white/80">First to reach 21 points wins!</span>
+              <span className="text-white/80">
+                First to reach 21 points wins!
+              </span>
             </li>
           </ul>
         </div>
@@ -766,7 +847,7 @@ const Lobby = ({ onJoinGame, onCreateGame }) => {
 };
 
 const MultiplayerCarromGame = () => {
-  const [gameState, setGameState] = useState("lobby"); 
+  const [gameState, setGameState] = useState("lobby");
   const [playerName, setPlayerName] = useState("");
   const [gameCode, setGameCode] = useState("");
 
@@ -789,13 +870,15 @@ const MultiplayerCarromGame = () => {
   };
 
   if (gameState === "lobby") {
-    return <Lobby onJoinGame={handleJoinGame} onCreateGame={handleCreateGame} />;
+    return (
+      <Lobby onJoinGame={handleJoinGame} onCreateGame={handleCreateGame} />
+    );
   }
 
   return (
-    <CGameScreen 
-      gameCode={gameCode} 
-      playerName={playerName} 
+    <CGameScreen
+      gameCode={gameCode}
+      playerName={playerName}
       onLeaveGame={handleLeaveGame}
     />
   );
